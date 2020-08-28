@@ -236,29 +236,50 @@ container<T>::~container()
 template<typename T>
 void container<T>::erase_pos(int i)//non uso unsigned int perché non credo che un u.int possa essere 0
 {
-    if(empty() || i>=size)//this->empty il controllo sull'empty-ness è ridondante, da togliere
+    if(empty())
         return;
 
-    nodo* tmp=first;
+    if(!first->next){
+        if(i==0){
+            delete first;
+            first=nullptr;
+            size-=1;
+            return;
+        }
+    }
+    else {
+        nodo* prec=first;
+        nodo* corr=first->next;
 
-    if(!last)
-    {
-        delete first;
-        first=nullptr;
+        if(i==0){
+            first=first->next;
+            prec->next=nullptr;
+            delete prec;
+            size-=1;
+            return;
+        }
+
+        for(int x=1; corr->next && x<i; x++){
+            prec=prec->next;
+            corr=corr->next;
+        }
+
+        if(corr->next) {
+            prec->next=corr->next;
+            corr->next=nullptr;
+            delete corr;
+            size-=1;
+            return;
+        }
+        else {
+            prec->next=nullptr;
+            last=prec;
+        }
+        delete corr;
         size-=1;
-        //return;
+        return;
     }
-
-    nodo* prev;
-    for (int x=i;x>0;x-=1)
-    {
-        prev=tmp;
-        tmp=tmp->next;
-    }
-    //forse va, da vedere
-    prev->next=tmp->next;
-    delete tmp;
-    size-=1;
+    return;
 }
 
 template<typename T>
@@ -300,8 +321,6 @@ void container<T>::push_front(const T & n)
        first=new nodo(n, first);
        size+=1;
    }
-
-
 }
 
 template<typename T>
