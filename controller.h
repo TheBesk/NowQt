@@ -1,8 +1,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <QObject>
-
 #include <QMessageBox>
 #include <iostream>
 #include<fstream>
@@ -15,6 +13,7 @@
 #include "model.h"
 #include "container.h"
 #include "deeppointer.h"
+#include <stdexcept>
 
 using std::ofstream;
 using std::endl;
@@ -27,12 +26,12 @@ public:
     explicit controller(QObject *parent = nullptr);
     ~controller();
 public slots:
-    void openAddView()const;
+    void openAddView() const;
     void errInput(string);
     void errData(string);
     void esitoCoup(string);
     void aggClienteContainer(const QStringList);
-    void openDettView(const unsigned int)const;
+    void openDettView(const int) const;
     void resetListaClienti();
     void removeC(const int);
     void clienteRimShowBox();
@@ -42,7 +41,7 @@ private:
     addClientWindow *addClientW;
     dettClientWindow *dettClientW;
     model* m;
-    QMap< int,  int> indexTranslate;
+    QMap<int, int> indexTranslate;
 };
 
 #endif // CONTROLLER_H
