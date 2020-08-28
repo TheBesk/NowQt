@@ -62,7 +62,7 @@ private:
 
 signals:
     void signOpenAddWindow();
-    void signOpenDettWindow(const unsigned int);
+    void signOpenDettWindow(const int);
     void rimuoviCliente(const int);
     /*void infoWindow();
     void signOpenModWindow();
