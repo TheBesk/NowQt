@@ -11,6 +11,8 @@
 #include <QString>
 #include <QFile>
 #include <QMap>
+#include <stdexcept>
+
 class model : public QObject
 {
 
@@ -22,21 +24,22 @@ public:
     QStringList getCampiCliente(const unsigned int) const;
     deepPointer<nowqt> mostraCliente(const unsigned int) const;
     QStringList getListaClientiT(QMap< int, int> &) const;
-
     bool getModificato() const;
-    QStringList getListaClientiPDF() const;
+//    QStringList getListaClientiPDF() const;
+    bool controlloCliente(const QString) const;
 
 public slots:
     void aggNelContainer(const QStringList);
     void removeC(const int);
+    
 signals:
     void clienteAggiunto();
     void clienteRimosso();
+    
 private:
     QString path;
     container<deepPointer<nowqt>> *datiTotali;
-
-bool modificato;
+    bool modificato;
 
 };
 
