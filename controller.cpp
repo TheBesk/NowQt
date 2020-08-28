@@ -16,8 +16,7 @@ controller::controller(QObject *parent) : QObject(parent),view(new mainwindow())
     connect(addClientW, SIGNAL(inviaStringaCliente(const QStringList)), this, SLOT(aggClienteContainer(const QStringList)));
 
     resetListaClienti();
-
-   view->show();
+    view->show();
 }
 
 controller::~controller()
@@ -32,11 +31,11 @@ void controller::openAddView() const
 }
 
 
-void controller::openDettView(const unsigned int c) const {
-            dettClientW->visualizzaDettagliCliente(m->mostraCliente(indexTranslate[c])); // è giusta
-            //dettClientW->caricaDati(m->getCampiCliente(view->getIndexSelected()), view->getIndexSelected());
-            dettClientW->setModal(true);
-            dettClientW->show();
+void controller::openDettView(const int c) const {
+    dettClientW->visualizzaDettagliCliente(m->mostraCliente(indexTranslate[c])); // è giusta
+    //dettClientW->caricaDati(m->getCampiCliente(view->getIndexSelected()), view->getIndexSelected());
+    dettClientW->setModal(true);
+    dettClientW->show();
 }
 
 /*
@@ -65,10 +64,15 @@ void controller::esitoCoup(string e)
     addClientW->mostraEsitoC(e);
 }
 
-
 void controller::aggClienteContainer(const QStringList dettagli)
 {
+    try{
     m->aggNelContainer(dettagli);
+    addClientW->close();
+    addClientW->successoCliente();
+    }catch(std::exception *exc){
+        addClientW->showErrorMessage(exc->what());
+    }
 }
 
 void controller::removeC(const int indice){
