@@ -66,15 +66,14 @@ void controller::esitoCoup(string e)
 
 void controller::aggClienteContainer(const QStringList dettagli)
 {
-    try{
+    //try{
     m->aggNelContainer(dettagli);
     addClientW->close();
     addClientW->successoCliente();
-    }catch(std::exception *exc){
+    /*}catch(std::exception *exc){
         addClientW->showErrorMessage(exc->what());
-    }
+    }*/
 }
-
 void controller::removeC(const int indice){
     m->removeC(indexTranslate[indice]);
 }
