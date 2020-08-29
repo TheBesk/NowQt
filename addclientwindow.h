@@ -33,6 +33,7 @@ public:
     void successoCliente();
     void mostraErroreData(string);
     void mostraEsitoC(string);
+    void showErrorMessage(const QString& message);a
     bool codiceSconto;
 
 public slots:
@@ -53,12 +54,12 @@ public slots:
     void aggiornaCostoCHD();
     void aggiornaCostoSHD();
 
-    //void aggiornaCostoP(string, string, double);
 signals:
     void esitoCoupon(string);
     void erroreData(string);
     void erroreInput(string);
     void inviaStringaCliente(const QStringList);
+    
 protected:
     QVBoxLayout* verticalDxLayout;
     QHBoxLayout* mainLayout, *hdestraBottoni, *schermiKHLayout, *schermiCHLayout, *schermiSHLayout, *scontoHLayout;
