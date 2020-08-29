@@ -432,9 +432,6 @@ void addClientWindow::aggiornaCostoSHD() {
 
                 temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti
                 emit inviaStringaCliente(*temp);
-                this->close();
-
-                successoCliente();
             }
     }
 
@@ -516,71 +513,79 @@ void addClientWindow::aggiornaCostoSHD() {
        }
    }
 
+void addClientWindow::showErrorMessage(const QString &message)
+{
+   QDialog* errdialog= new QDialog(this);
+   QVBoxLayout* errlayout= new QVBoxLayout(errdialog);
+   errlayout->addWidget(new QLabel(message, errdialog));
 
-   void addClientWindow::mostraEsitoC(string e)
-   {
-       QMessageBox esitoCouponBox;
-       if(e=="corretto") {
-           esitoCouponBox.critical(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
+   errdialog->show();
 }
-       else if (e=="errato") {
-           esitoCouponBox.critical(this, "Coupon errato", "Il coupon inserito non è corretto. Riprovare con un altro codice.");
-}
-       else if(e=="carrellovuoto") {
-           esitoCouponBox.critical(this, "Carrello vuoto", "Il carrello è vuoto quindi il coupon non può essere inserito. Aggiungere qualcosa nel carrello e riprovare.");
-       }
-       }
 
-   void addClientWindow::verificaCoupon() {
-       double t=totaleAbbLabel->text().toDouble();
-       if(t>0) {
-           if(codicescLineEdit->text()=="UNIPD") {
-                emit esitoCoupon("corretto");
-                // chiama qualcosa che aggiorni il totale
-                aggiornaTotale("s", 10);
-                codiceSconto=true;
-                verificacButton->setEnabled(false);
-                codicescLineEdit->setEnabled(false);
-            }
-            else {
-                codicescLineEdit->setText("");
-                emit esitoCoupon("errato");
-            }
-       }
-       else {
-           codicescLineEdit->setText("");
-           emit esitoCoupon("carrellovuoto");
-       }
+void addClientWindow::mostraEsitoC(string e)
+{
+   QMessageBox esitoCouponBox;
+   if(e=="corretto") {
+       esitoCouponBox.critical(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
+    }
+   else if (e=="errato") {
+       esitoCouponBox.critical(this, "Coupon errato", "Il coupon inserito non è corretto. Riprovare con un altro codice.");
+    }
+   else if(e=="carrellovuoto") {
+       esitoCouponBox.critical(this, "Carrello vuoto", "Il carrello è vuoto quindi il coupon non può essere inserito. Aggiungere qualcosa nel carrello e riprovare.");
    }
+}
 
-
-   void addClientWindow::resettaInput()
-   {
-       nomeLineEdit->setText("");
-       cognomeLineEdit->setText("");
-       codFiscLineEdit->setText("");
-       dateNascita->setDate(QDate::currentDate());
-       emailLineEdit->setText("");
-       pacchettoKidscb->setChecked(false);
-       costoPKidsLabel->setText("4");
-       schermiKLineEdit->setText("2");
-       kidsHDcheckBox->setChecked(false);
-       pacchettoCinemacb->setChecked(false);
-       costoPCinemaLabel->setText("10");
-       schermiCLineEdit->setText("2");
-       cinemaHDcheckBox->setChecked(false);
-       pacchettoSportcb->setChecked(false);
-       costoPSportLabel->setText("15");
-       sportsuperHDcheckBox->setChecked(false);
-       schermiSLineEdit->setText("2");
-       dateInAbb->setDate(QDate::currentDate());
-       mesiLineEdit->setText("");
+void addClientWindow::verificaCoupon() {
+   double t=totaleAbbLabel->text().toDouble();
+   if(t>0) {
+       if(codicescLineEdit->text()=="UNIPD") {
+            emit esitoCoupon("corretto");
+            // chiama qualcosa che aggiorni il totale
+            aggiornaTotale("s", 10);
+            codiceSconto=true;
+            verificacButton->setEnabled(false);
+            codicescLineEdit->setEnabled(false);
+        }
+        else {
+            codicescLineEdit->setText("");
+            emit esitoCoupon("errato");
+        }
+   }
+   else {
        codicescLineEdit->setText("");
-       kidsGroup->setVisible(false);
-       cinemaGroup->setVisible(false);
-       sportGroup->setVisible(false);
-       totaleAbbLabel->setText("0");
-       verificacButton->setEnabled(false);
-       codicescLineEdit->setEnabled(false);
-       codiceSconto=false;
+       emit esitoCoupon("carrellovuoto");
    }
+}
+
+
+void addClientWindow::resettaInput()
+{
+   nomeLineEdit->setText("");
+   cognomeLineEdit->setText("");
+   codFiscLineEdit->setText("");
+   dateNascita->setDate(QDate::currentDate());
+   emailLineEdit->setText("");
+   pacchettoKidscb->setChecked(false);
+   costoPKidsLabel->setText("4");
+   schermiKLineEdit->setText("2");
+   kidsHDcheckBox->setChecked(false);
+   pacchettoCinemacb->setChecked(false);
+   costoPCinemaLabel->setText("10");
+   schermiCLineEdit->setText("2");
+   cinemaHDcheckBox->setChecked(false);
+   pacchettoSportcb->setChecked(false);
+   costoPSportLabel->setText("15");
+   sportsuperHDcheckBox->setChecked(false);
+   schermiSLineEdit->setText("2");
+   dateInAbb->setDate(QDate::currentDate());
+   mesiLineEdit->setText("");
+   codicescLineEdit->setText("");
+   kidsGroup->setVisible(false);
+   cinemaGroup->setVisible(false);
+   sportGroup->setVisible(false);
+   totaleAbbLabel->setText("0");
+   verificacButton->setEnabled(false);
+   codicescLineEdit->setEnabled(false);
+   codiceSconto=false;
+}
