@@ -33,7 +33,7 @@ public:
     void successoCliente();
     void mostraErroreData(string);
     void mostraEsitoC(string);
-    void showErrorMessage(const QString& message);a
+    void showErrorMessage(const QString& message);
     bool codiceSconto;
 
 public slots:
