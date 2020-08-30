@@ -380,6 +380,21 @@ void addClientWindow::verificaCoupon() {
             codiceSconto=true;
             verificacButton->setEnabled(false);
             codicescLineEdit->setEnabled(false);
+            pacchettoKidscb->setEnabled(false);
+            pacchettoCinemacb->setEnabled(false);
+            pacchettoSportcb->setEnabled(false);
+            aggiungisKButton->setEnabled(false);
+            aggiungisCButton->setEnabled(false);
+            aggiungisSButton->setEnabled(false);
+            rimuovisKButton->setEnabled(false);
+            rimuovisCButton->setEnabled(false);
+            rimuovisSButton->setEnabled(false);
+            kidsHDcheckBox->setEnabled(false);
+            cinemaHDcheckBox->setEnabled(false);
+            sportsuperHDcheckBox->setEnabled(false);
+            schermiKLineEdit->setEnabled(false);
+            schermiCLineEdit->setEnabled(false);
+            schermiSLineEdit->setEnabled(false);
         }
         else {
             codicescLineEdit->setText("");
@@ -458,6 +473,7 @@ void addClientWindow::conferma()
 
         temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti 27
         emit inviaStringaCliente(*temp);
+        delete temp;
     }
 }
 
@@ -590,4 +606,20 @@ void addClientWindow::resettaInput()
    verificacButton->setEnabled(true);
    codicescLineEdit->setEnabled(true);
    codiceSconto=false;
+   verificacButton->setEnabled(true);
+   pacchettoKidscb->setEnabled(true);
+   pacchettoCinemacb->setEnabled(true);
+   pacchettoSportcb->setEnabled(true);
+   aggiungisKButton->setEnabled(true);
+   aggiungisCButton->setEnabled(true);
+   aggiungisSButton->setEnabled(true);
+   rimuovisKButton->setEnabled(true);
+   rimuovisCButton->setEnabled(true);
+   rimuovisSButton->setEnabled(true);
+   kidsHDcheckBox->setEnabled(true);
+   cinemaHDcheckBox->setEnabled(true);
+   sportsuperHDcheckBox->setEnabled(true);
+   schermiKLineEdit->setEnabled(true);
+   schermiCLineEdit->setEnabled(true);
+   schermiSLineEdit->setEnabled(true);
 }
