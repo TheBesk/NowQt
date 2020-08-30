@@ -34,8 +34,10 @@ public slots:
     void openModView() const;
     void resetListaClienti();
     void removeC(const int);
+    void resetListaClientiF();
     void clienteRimShowBox();
     void rimpiazzaItem(const int,const QStringList);
+    void cFilter(const QString&);
 
 private:
     mainwindow* view;

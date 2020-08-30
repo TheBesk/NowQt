@@ -9,6 +9,7 @@ controller::controller(QObject *parent) : QObject(parent), view(new mainwindow()
     connect(m, SIGNAL(clienteAggiunto()), this, SLOT(resetListaClienti()));
     connect(m, SIGNAL(clienteRimosso()), this, SLOT(resetListaClienti()));
     connect(m, SIGNAL(clienteRimosso()), this, SLOT(clienteRimShowBox()));
+    connect(view, SIGNAL(elementFilter(const QString&)), this, SLOT(cFilter(const QString&)));
 
     connect(addClientW, SIGNAL(erroreInput(string)), this, SLOT(errInput(string)));
     connect(addClientW, SIGNAL(erroreData(string)),this , SLOT(errData(string)));
@@ -51,6 +52,11 @@ void controller::openModView() const
         view->nessunSelezionato();
 }
 
+void controller::resetListaClientiF()
+{
+    view->mostraClienti(m->getListaClientiF(indexTranslate));
+}
+
 void controller::rimpiazzaItem(const int indice, const QStringList stringaCliente)
 {
     m->modificaItem(indexTranslate[indice], stringaCliente);
@@ -81,6 +87,13 @@ void controller::esitoCoup(string e)
 
 void controller::removeC(const int indice){
     m->removeC(indexTranslate[indice]);
+}
+
+void controller::cFilter(const QString& n)
+{
+    std::string temp=n.toStdString();
+    m->actualFilter(temp);
+    resetListaClientiF();
 }
 
 void controller::clienteRimShowBox(){

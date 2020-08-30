@@ -26,10 +26,9 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
 
     QHBoxLayout* imgLayout = new QHBoxLayout();
 
-    QPixmap  pix;
-    pix.load(":/risorse/rsz_nowqt.jpg");
+    QPixmap*  pix = new QPixmap(":/risorse/rsz_nowqt.jpg");
     QLabel* image = new QLabel(this);
-    image->setPixmap(pix);
+    image->setPixmap(*pix);
     imgLayout->addWidget(image);
     verticalDxLayout->addLayout(imgLayout);
 
@@ -79,6 +78,7 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
     connect(dettButton, SIGNAL(clicked()), this, SLOT(showInfoCliente()));
     connect(removeButton, SIGNAL(clicked()),this, SLOT(richRimuoviC()));
     connect(modButton, SIGNAL(clicked()), this, SIGNAL(signOpenModWindow()));
+    connect(tipoP, SIGNAL(currentTextChanged(const QString &)), this, SIGNAL(elementFilter(const QString&)));
 }
 
 void mainwindow::mostraClienti(const QStringList datiCliente)

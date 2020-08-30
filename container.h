@@ -1,6 +1,9 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
-//#include <iterator>
+#include <string>
+#include<QStringList>
+#include<deeppointer.h>
+using std::string;
 
 template <typename T>
 class container{
@@ -17,22 +20,21 @@ private:
         int size;
 public:
     //costruttori e distruttore
-    container(nodo* =nullptr, nodo* =nullptr, unsigned int =0);
-    container(container*);
+        container(nodo* =nullptr, nodo* =nullptr, unsigned int =0);
+        container(container*);
     ~container();
     //metodi della lista, push_back, remove, ...
-    void erase_pos (const int); //cancello valore in posizione i
-    unsigned int get_pos(const T&); //*
-    //const T& element_at_pos(unsigned int);
-    bool empty() const; //*controllo se il container è vuoto
-    void push_front(const T&); //*aggiunge un elemento all'inizio
-    void push_back(const T&); //aggiunge un elemento alla fine
-    void pop_back(); //*fa una erase_pos(size-1) rimuove l'ultimo elemento DA VERIFICARE
-    void replace_last(int, const T&); //elimina elementi in una certa posizione e ne aggiunge un altro alla fine
-    T get_T_at_pos(const int) const;
-    int get_size()const; //ritorno IL NUMERO di elementi
-    void erase();
-
+        void erase_pos (int); //cancello valore in posizione i
+        unsigned int get_pos(const T&); //*
+        //const T& element_at_pos(unsigned int);
+        bool empty() const; //*controllo se il container è vuoto
+        void push_front(const T&); //*aggiunge un elemento all'inizio
+        void push_back(const T&); //aggiunge un elemento alla fine
+        void pop_back(); //*fa una erase_pos(size-1) rimuove l'ultimo elemento DA VERIFICARE
+        void replace_last(int, const T&); //elimina elementi in una certa posizione e ne aggiunge un altro alla fine
+        T get_T_at_pos(int) const;
+        void erase();
+        int get_size()const; //ritorno IL NUMERO di elementi
     //classe iteratore
     class iterator{
     friend class container<T>;
@@ -59,7 +61,9 @@ public:
         const nodo* pointer;
     public:
         const_iterator(nodo* p=nullptr);
-        const_iterator& operator=(const const_iterator&);
+
+                const_iterator& operator=(const const_iterator&);
+
         const_iterator& operator++();
         const_iterator operator++(int);
 
@@ -67,13 +71,13 @@ public:
         bool operator!=(const const_iterator& );
 
         const T& operator*() const;
-        const nodo* operator->() const;
+                const nodo* operator->() const;
     };
 
-    iterator begin();
-    iterator end();
-    const_iterator begin() const;
-    const_iterator end() const;
+        iterator begin();
+        iterator end();
+        const_iterator begin() const;
+        const_iterator end() const;
 };
 
 
@@ -81,12 +85,14 @@ public:
 template<typename T>
 container<T>::nodo::nodo(const T& i, container::nodo * n): info(i), next(n){}
 
+
 template<typename T>
 void container<T>::nodo::distruggi()
 {
     if(next) next->distruggi();
     delete this;
 }
+
 
 //ITERATOR
 template<typename T>
@@ -103,7 +109,7 @@ template<typename T>
 typename container<T>::iterator &container<T>::iterator::operator++()
 {
     if(pointer)
-    pointer=pointer->next;
+        pointer=pointer->next;
     return *this;
 }
 
@@ -189,7 +195,6 @@ const typename container<T>::nodo *container<T>::const_iterator::operator->() co
 {
     return pointer;
 }
-
 //CONTAINER
 template<typename T>
 typename container<T>::iterator container<T>::begin()
@@ -218,6 +223,7 @@ container<T>::container(container *c)
     {
         this->insert(*c);
     }
+
 }
 
 template<typename T>
@@ -274,15 +280,6 @@ void container<T>::erase_pos(int i)//non uso unsigned int perché non credo che 
         return;
     }
     return;
-}
-
-template<class T>
-void container<T>::erase()
-{
-    if (first){
-        first->distruggi();
-        last = nullptr;
-    }
 }
 
 template<typename T>
@@ -342,7 +339,6 @@ void container<T>::push_back(const T & n)
         size+=1;
    }
 }
-
 template<typename T>
 void container<T>::pop_back() // per fare questa uso la erase, che elimina un elemento in una posizione nota
 {
@@ -374,30 +370,39 @@ void container<T>::replace_last(int i, const T& m)
 }
 
 template<typename T>
-T container<T>::get_T_at_pos(const int i) const
+T container<T>::get_T_at_pos(int i) const
 {
     if(!first->next){
-        if(i==0){
-            return first->info;
+            if(i==0){
+                return first->info;
+            }
         }
+        else{
+            nodo* curr=first->next;
+
+            if(i==0){
+                return first->info;
+            }
+
+            for(int x=1; curr->next && x<i; x++){
+                curr=curr->next;
+            }
+
+            if(curr){
+                return curr->info;
+            }
+        }
+        T tmp;
+        return tmp;
+}
+
+template<class T>
+void container<T>::erase()
+{
+    if (first){
+        first->distruggi();
+        first = nullptr;
     }
-    else{
-        nodo* curr=first->next;
-
-        if(i==0){
-            return first->info;
-        }
-
-        for(int x=1; curr->next && x<i; x++){
-            curr=curr->next;
-        }
-
-        if(curr){
-            return curr->info;
-        }
-    }
-    T tmp;
-    return tmp;
 }
 
 template<typename T>

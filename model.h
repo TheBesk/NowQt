@@ -30,6 +30,8 @@ public:
     QStringList getListaClientiPDF() const;
     bool controlloCliente(const QString) const;
     double applicaScontoAI(double, unsigned int);
+    QStringList getListaClientiF(QMap< int, int> &) const;
+    void actualFilter(const std::string);
 
 public slots:
     void aggNelContainer(const QStringList);
@@ -43,6 +45,7 @@ signals:
 private:
     QString path;
     container<deepPointer<nowqt>> *datiTotali;
+    container<deepPointer<nowqt>> *datiParziali;
     bool modificato;
 
 };

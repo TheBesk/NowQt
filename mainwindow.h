@@ -59,6 +59,7 @@ signals:
     void signOpenDettWindow(const int);
     void signOpenModWindow();
     void rimuoviCliente(const int);
+        void elementFilter(const QString&); //oppure const string?
     /*
     void signOpenModWindow();
     void controllaModificato();
