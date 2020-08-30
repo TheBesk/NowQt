@@ -3,6 +3,7 @@
 mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new viewListaC(this))
 {
     setWindowTitle("NowQT");
+    setWindowIcon(QIcon(":/icone/nowqt_icon.ico"));
     mainLayout = new QVBoxLayout(this);
 
     QMenuBar* menubar = new QMenuBar(this);
