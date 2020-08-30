@@ -24,6 +24,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <iostream>
+#include <QIcon>
 
 class mainwindow : public QWidget
 {
