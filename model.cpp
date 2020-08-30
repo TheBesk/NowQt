@@ -1,12 +1,14 @@
 #include "model.h"
-model::model(QString path) : path(path), datiTotali(new container<deepPointer<nowqt>>()), modificato(false)
+model::model(QString path) : path(path), datiTotali(new container<deepPointer<nowqt>>()),datiParziali(new container<deepPointer<nowqt>>()), modificato(false)
 {
 }
 
 model::~model()
 {
     datiTotali->erase();
+    datiParziali->erase();
     delete datiTotali;
+    delete datiParziali;
 }
 
 /*
@@ -103,6 +105,24 @@ QStringList model::getListaClientiT(QMap< int,  int>& indexMapper) const
     return ret;
 }
 
+QStringList model::getListaClientiF(QMap<int, int> & indexMapper) const
+{
+    QStringList ret;
+    QString cliente;
+    auto it=datiParziali->begin();
+    unsigned int count=0;
+    if(!datiParziali->empty()){
+        while(it!=datiParziali->end()){
+            cliente = (QString::fromStdString((*(*it)).getNome() + " " + (*(*it)).getCognome()));
+            indexMapper.insert((uint)ret.count(),count);
+            ret.push_back(cliente);
+            count++;
+            ++it;
+        }
+    }
+    return ret;
+}
+
 bool model::controlloCliente(const QString cf) const {
     QString codf;
     auto it=datiTotali->begin();
@@ -117,6 +137,29 @@ bool model::controlloCliente(const QString cf) const {
         return true;
     }
     else return true;
+}
+
+void model::actualFilter(const std::string n)
+{
+    datiParziali->erase();
+    for(auto it=datiTotali->begin(); it!=datiTotali->end(); ++it)
+    {
+        nowqt* tmp=*it;
+        if(n=="Kids")
+            {if(dynamic_cast<kids*>(tmp)!=nullptr && dynamic_cast<allinclusive*>(tmp)==nullptr)
+             datiParziali->push_back(*it);}
+        if(n=="Sport")
+            {if(dynamic_cast<sport*>(tmp)!=nullptr && dynamic_cast<allinclusive*>(tmp)==nullptr)
+             datiParziali->push_back(*it);}
+        if(n=="Cinema")
+            {if(dynamic_cast<cinema*>(tmp)!=nullptr && dynamic_cast<allinclusive*>(tmp)==nullptr)
+             datiParziali->push_back(*it);}
+        if(n=="All Inclusive")
+            {if(dynamic_cast<allinclusive*>(tmp)!=nullptr)
+             datiParziali->push_back(*it);}
+        if(n=="Nessun filtro")
+             datiParziali->push_back(*it);
+    }
 }
 
 void model::aggNelContainer(const QStringList c)

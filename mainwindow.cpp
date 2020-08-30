@@ -79,6 +79,8 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
     //connect(modButton, SIGNAL(clicked()), this, SIGNAL(signEsportaPDFClienti())); SIGNAL editClient
     connect(dettButton, SIGNAL(clicked()), this, SLOT(showInfoCliente()));
     connect(removeButton, SIGNAL(clicked()),this, SLOT(richRimuoviC()));
+    connect(tipoP, SIGNAL(currentTextChanged(const QString &)), this, SIGNAL(elementFilter(const QString&)));
+
    // connect(modButton, SIGNAL(clicked()), this, SIGNAL(signOpenModWindow()));
 //    connect(listaClienti, SIGNAL(itemSelectionChanged()), this, SLOT(showInfoCliente()));
 

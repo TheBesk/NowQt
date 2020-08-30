@@ -24,9 +24,11 @@ public:
     QStringList getCampiCliente(const unsigned int) const;
     deepPointer<nowqt> mostraCliente(const unsigned int) const;
     QStringList getListaClientiT(QMap< int, int> &) const;
+    QStringList getListaClientiF(QMap< int, int> &) const;
     bool getModificato() const;
 //    QStringList getListaClientiPDF() const;
     bool controlloCliente(const QString) const;
+    void actualFilter(const std::string);
 
 public slots:
     void aggNelContainer(const QStringList);
@@ -39,6 +41,7 @@ signals:
 private:
     QString path;
     container<deepPointer<nowqt>> *datiTotali;
+    container<deepPointer<nowqt>> *datiParziali;
     bool modificato;
 
 };

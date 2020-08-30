@@ -64,6 +64,7 @@ signals:
     void signOpenAddWindow();
     void signOpenDettWindow(const int);
     void rimuoviCliente(const int);
+    void elementFilter(const QString&); //oppure const string?
     /*void infoWindow();
     void signOpenModWindow();
     void cercaRuntime();

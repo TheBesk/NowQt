@@ -33,8 +33,10 @@ public slots:
     void aggClienteContainer(const QStringList);
     void openDettView(const int) const;
     void resetListaClienti();
+    void resetListaClientiF();
     void removeC(const int);
     void clienteRimShowBox();
+    void cFilter(const QString&);
 
 private:
     mainwindow* view;
