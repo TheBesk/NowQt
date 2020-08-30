@@ -21,13 +21,11 @@ class model : public QObject
 public:
     model(QString path);
     ~model();
-  //  QStringList getCampiCliente(const unsigned int) const;
     deepPointer<nowqt> mostraCliente(const int) const;
     QStringList getListaClientiT(QMap<int, int> &) const;
     void removeC(const int);
     bool getModificato() const;
     QStringList getCampiCliente(const int) const;
-    QStringList getListaClientiPDF() const;
     bool controlloCliente(const QString) const;
     double applicaScontoAI(double, unsigned int);
     QStringList getListaClientiF(QMap< int, int> &) const;
