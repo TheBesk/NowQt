@@ -35,8 +35,6 @@ public:
     int getIndexSelected() const;
     void mostraClienti(const QStringList);
     void nessunSelezionato();
-    // void visualizzaDettagliCliente(deepPointer<cliente>) const;
-    // void resetDettCliente() const;
 public slots:
     void richRimuoviC();
     void showInfoCliente();
@@ -48,9 +46,8 @@ private:
     QLineEdit* lineCerca;
     QPushButton* addButton,*modButton,*removeButton, *dettButton;
     viewListaC *listaClienti;
-    QPixmap *pix;
     QLabel *filtroLabel, *image;
-    QGroupBox* clientiGroup; //piscinaGroup,* palestraGroup, *filtriGroup;
+    QGroupBox* clientiGroup; // *filtriGroup;
     // void setMainWindowStyle();
     // void closeEvent(QCloseEvent*) override;
 
@@ -59,10 +56,8 @@ signals:
     void signOpenDettWindow(const int);
     void signOpenModWindow();
     void rimuoviCliente(const int);
-        void elementFilter(const QString&); //oppure const string?
+    void elementFilter(const QString&); //oppure const string?
     /*
-    void signOpenModWindow();
-    void controllaModificato();
     void filtroKids();
     void filtroCinema();
     void filtroSport();
