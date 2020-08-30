@@ -26,9 +26,10 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
 
     QHBoxLayout* imgLayout = new QHBoxLayout();
 
-    QPixmap*  pix = new QPixmap(":/risorse/rsz_nowqt.jpg");
+    QPixmap  pix;
+    pix.load(":/risorse/rsz_nowqt.jpg");
     QLabel* image = new QLabel(this);
-    image->setPixmap(*pix);
+    image->setPixmap(pix);
     imgLayout->addWidget(image);
     verticalDxLayout->addLayout(imgLayout);
 
