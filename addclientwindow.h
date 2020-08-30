@@ -27,15 +27,13 @@ public:
     void mostraEsitoC(string);
     void successoCliente();
     void showErrorInsMessage(const QString& message);
-    bool codiceSconto;
-
 
 public slots:
     virtual void conferma();
     void mostraKids();
     void mostraCinema();
     void mostraSport();
-    void resettaInput(); // resetta
+    void resettaInput();
     void buttonKplus();
     void buttonKmin();
     void buttonCplus();
@@ -55,6 +53,7 @@ signals:
     void inviaStringaCliente(const QStringList);
 
 protected:
+    bool codiceSconto;
     QVBoxLayout* verticalDxLayout;
     QHBoxLayout* mainLayout, *hdestraBottoni, *schermiKHLayout, *schermiCHLayout, *schermiSHLayout, *scontoHLayout;
     QLabel *introLabel, *personLabel, *avvertLabel, *scontoLabel;
@@ -64,7 +63,6 @@ protected:
     QDateEdit *dateInAbb, *dateNascita;
     QGroupBox *kidsGroup, *cinemaGroup, *sportGroup;
     QPushButton* salvaButton, *annullaButton, *aggiungisKButton, *rimuovisKButton, *aggiungisCButton, *rimuovisCButton, *aggiungisSButton, *rimuovisSButton, *verificacButton;
-
 };
 
 #endif // ADDCLIENTWINDOW_H
