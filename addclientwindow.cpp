@@ -1,13 +1,13 @@
 #include "addclientwindow.h"
 
-addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceSconto(false), totaleAbbLabel(new QLabel(this)), titoloPKidsLabel(new QLabel(this)), descPKidsLabel(new QLabel(this)), costoPKidsLabel(new QLabel(this)), titoloPCinemaLabel(new QLabel(this)), descPCinemaLabel(new QLabel(this)), costoPCinemaLabel(new QLabel(this)), titoloPSportLabel(new QLabel(this)), descPSportLabel(new QLabel(this)), costoPSportLabel(new QLabel(this)), pacchettoKidscb(new QCheckBox("Offerta Kids",this)), pacchettoCinemacb(new QCheckBox("Offerta Cinema",this)), pacchettoSportcb(new QCheckBox("Offerta Sport", this)), kidsGroup (new QGroupBox("Pacchetto 1",this)), cinemaGroup(new QGroupBox("Pacchetto 2",this)), sportGroup(new QGroupBox("Pacchetto 3",this))
+addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceSconto(false), introLabel(new QLabel(this)), personLabel(new QLabel(this)), avvertLabel(new QLabel(this)), scontoLabel(new QLabel(this)), totaleAbbLabel(new QLabel(this)), titoloPKidsLabel(new QLabel(this)), descPKidsLabel(new QLabel(this)), costoPKidsLabel(new QLabel(this)), titoloPCinemaLabel(new QLabel(this)), descPCinemaLabel(new QLabel(this)), costoPCinemaLabel(new QLabel(this)), titoloPSportLabel(new QLabel(this)), descPSportLabel(new QLabel(this)), costoPSportLabel(new QLabel(this)), pacchettoKidscb(new QCheckBox("Offerta Kids",this)), pacchettoCinemacb(new QCheckBox("Offerta Cinema",this)), pacchettoSportcb(new QCheckBox("Offerta Sport", this)), kidsGroup (new QGroupBox("Pacchetto 1",this)), cinemaGroup(new QGroupBox("Pacchetto 2",this)), sportGroup(new QGroupBox("Pacchetto 3",this))
 {
     setMinimumSize(900, 600);
     setWindowTitle("Registrazione nuovo cliente");
     mainLayout = new QHBoxLayout(this);
 
     setLayout(mainLayout);
-    QLabel *introLabel = new QLabel(tr("Benvenuto. I campi con (*) sono obbligatori."));
+    introLabel->setText("Benvenuto. I campi con (*) sono obbligatori.");
 
     QLabel *nomeLabel = new QLabel(tr("Nome(*): "));
     nomeLineEdit = new QLineEdit();
@@ -17,7 +17,7 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     cognomeLineEdit = new QLineEdit();
     cognomeLineEdit->setPlaceholderText("es. Bianchi");
 
-    QLabel *codFiscLabel = new QLabel(tr("Codice Fiscale(*): "));
+    QLabel *codFiscLabel = new QLabel(tr("Codice fiscale(*): "));
     codFiscLineEdit = new QLineEdit();
     codFiscLineEdit->setValidator(new QRegExpValidator(QRegExp("[A-Z0-9]{0,20}")));
     codFiscLineEdit->setPlaceholderText("es. MNLGFR78B63M297E");
@@ -30,8 +30,8 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     emailLineEdit = new QLineEdit();
     emailLineEdit->setPlaceholderText("es. mariobianchi@unipd.it");
 
-    QLabel *personLabel = new QLabel(tr("Puoi selezionare 1 pacchetto o tutti i pacchetti."));
-    QLabel *avvertLabel = new QLabel(tr("Selezionando tutti i pacchetti si attiverà automaticamente \nil pacchetto ""All inclusive"" ad un prezzo scontato. Lo sconto \nverrà applicato al termine della registrazione."));
+    personLabel->setText("Puoi selezionare 1 pacchetto o tutti i pacchetti.");
+    avvertLabel->setText("Selezionando tutti i pacchetti si attiverà automaticamente \nil pacchetto ""All inclusive"" ad un prezzo scontato. Lo sconto \nverrà applicato al termine della registrazione.");
 
     QLabel *dateInAbbLabel = new QLabel("Data inizio abbonamento(*): ");
     dateInAbb = (new QDateEdit(QDate::currentDate(),this));
@@ -40,9 +40,9 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     QLabel *mesiLabel = new QLabel(tr("Mesi(*): "));
     mesiLineEdit= new QLineEdit();
     mesiLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{3}")));
-// 1 non deve essere valido
+    // 1 non deve essere valido
     QHBoxLayout *scontoHLayout= new QHBoxLayout();
-    QLabel *scontoLabel = new QLabel(tr("Hai un codice sconto? \nInseriscilo qui dopo aver personalizzato il tuo abbonamento a nowqt."));
+    scontoLabel->setText("Hai un codice sconto? \nInseriscilo qui dopo aver personalizzato il tuo abbonamento a nowqt.");
     codicescLineEdit = new QLineEdit();
     verificacButton = new QPushButton("Verifica",this);
     scontoHLayout->addWidget(codicescLineEdit);
@@ -113,7 +113,6 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     formKidsLayout->addRow(kidsHDcheckBox);
 
     kidsGroup->setLayout(formKidsLayout);
-
 
     //************** PEZZO FORM CINEMA ********************
     QFormLayout *formCinemaLayout = new QFormLayout();
@@ -220,7 +219,6 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     cinemaGroup->setVisible(false);
     sportGroup->setVisible(false);
 
-
     connect(annullaButton, SIGNAL(clicked()), this, SLOT(close()));
     connect(salvaButton, SIGNAL(clicked()), this, SLOT(conferma()));
     connect(pacchettoKidscb,SIGNAL(clicked()), this, SLOT(mostraKids()));
@@ -236,7 +234,6 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     connect(kidsHDcheckBox,SIGNAL(clicked()), this, SLOT(aggiornaCostoKHD()));
     connect(cinemaHDcheckBox,SIGNAL(clicked()), this, SLOT(aggiornaCostoCHD()));
     connect(sportsuperHDcheckBox,SIGNAL(clicked()), this, SLOT(aggiornaCostoSHD()));
-
 }
 
 void addClientWindow::aggiornaTotale(string s, double d) { // SISTEMARE.
@@ -249,8 +246,8 @@ void addClientWindow::aggiornaTotale(string s, double d) { // SISTEMARE.
     }
     else if(s=="s") {
          double sconto=(t*d)/100;
-            t=t-sconto;
-        }
+         t=t-sconto;
+    }
     totaleAbbLabel->setText(QString::number(t));
 }
 
@@ -259,10 +256,10 @@ void addClientWindow::aggiornaCostoKHD() {
     if(kidsHDcheckBox->isChecked()==true) {
         k=k+1;
         aggiornaTotale("a", 1);
-}
+    }
     else {
         k=k-1;
-    aggiornaTotale("r", 1);
+        aggiornaTotale("r", 1);
     }
     costoPKidsLabel->setText(QString::number(k));
 }
@@ -271,12 +268,12 @@ void addClientWindow::aggiornaCostoCHD() {
     double c=costoPCinemaLabel->text().toDouble();
     if(cinemaHDcheckBox->isChecked()==true) {
         c=c+3;
-    aggiornaTotale("a", 3);
-}
+        aggiornaTotale("a", 3);
+    }
     else {
         c=c-3;
         aggiornaTotale("r", 3);
-}
+    }
     costoPCinemaLabel->setText(QString::number(c));
 }
 
@@ -286,260 +283,97 @@ void addClientWindow::aggiornaCostoSHD() {
         s=s+5;
         aggiornaTotale("a", 5);
     }
-     else {
+    else {
         s=s-5;
         aggiornaTotale("r", 5);
-   }
+    }
     costoPSportLabel->setText(QString::number(s));
-   }
-
-
-    void addClientWindow::mostraKids()
-    {
-        if (pacchettoKidscb->isChecked()==true) {
-            kidsGroup->setVisible(true);
-            aggiornaTotale("a", costoPKidsLabel->text().toDouble());
-        }
-        else {
-            kidsGroup->setVisible(false);
-            aggiornaTotale("r", costoPKidsLabel->text().toDouble());
-        }
-    }
-
-    void addClientWindow::mostraCinema()
-    {
-        if (pacchettoCinemacb->isChecked()==true) {
-            cinemaGroup->setVisible(true);
-            aggiornaTotale("a", costoPCinemaLabel->text().toDouble());
-        }
-        else {
-            cinemaGroup->setVisible(false);
-            aggiornaTotale("r", costoPCinemaLabel->text().toDouble());
-            }
-    }
-
-    void addClientWindow::mostraSport()
-    {
-        if (pacchettoSportcb->isChecked()==true) {
-            sportGroup->setVisible(true);
-            aggiornaTotale("a", costoPSportLabel->text().toDouble());
-
-    }
-        else {
-            sportGroup->setVisible(false);
-            aggiornaTotale("r", costoPSportLabel->text().toDouble());
-
-        }
-    }
-
-    void addClientWindow::mostraErroreInput(string i)
-    {
-        QMessageBox erroreInputBox;
-        if (i== "mancaLineEdit")
-            erroreInputBox.critical(this,"Input errato","Compilare tutti i campi obbligatori.");
-        else if (i =="mancaCheckBox")
-            erroreInputBox.critical(this,"Input errato","Nessun pacchetto selezionato. Selezionare almeno uno dei pacchetti.");
-        else if (i=="mesiErrati")
-            erroreInputBox.critical(this,"Input errato", "Il numero di mesi selezionato non è valido. Inserire un valore maggiore di 0.");
-        else if(i=="troppiPacchetti") {
-            erroreInputBox.critical(this, "Input errato", "Sono stati selezionati 2 pacchetti. Selezionare un pacchetto oppure tutti i pacchetti.");
-        }
-    }
-
-    void addClientWindow::successoCliente()
-    {
-        QMessageBox clienteAggiuntoBox;
-        clienteAggiuntoBox.information(this,"Registrazione effettuata","Il cliente è stato aggiunto con successo!");
-    }
-
-    void addClientWindow::mostraErroreData(string d)
-    {
-        QMessageBox erroreDataBox;
-        if(d=="dataAbb") {
-            erroreDataBox.critical(this,"Data inizio abbonamento non corretta", "La data selezionata non è valida. Selezionare una data di inizio abbonamento successiva o uguale a quella attuale");
 }
-        else if (d=="dataNascita") {
-            erroreDataBox.critical(this, "Data di nascita non corretta", "La data selezionata non è valida. Selezionare una data di nascita con anno inferiore a quello attuale.");
-}
-        }
 
-   void addClientWindow::conferma()
-    {
-        if(((dateInAbb->date().year() < QDate::currentDate().year()) || (dateInAbb->date().year() == QDate::currentDate().year() && dateInAbb->date().month() < QDate::currentDate().month()) || (dateInAbb->date().year() == QDate::currentDate().year() && dateInAbb->date().month() == QDate::currentDate().month() && dateInAbb->date().day() < QDate::currentDate().day()))) {
-            emit erroreData("dataAbb");
-}
-        else if(dateNascita->date().year() >= QDate::currentDate().year()) {
-                 emit erroreData("dataNascita");
-}
-        else
-            if(nomeLineEdit->text()=="" || cognomeLineEdit->text()=="" || codFiscLineEdit->text()=="" || emailLineEdit->text()=="" || mesiLineEdit->text()=="") {
-                emit erroreInput("mancaLineEdit");
-            }
-            else if ((!pacchettoKidscb->isChecked() && !pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
-                emit erroreInput("mancaCheckBox");
-            }
-            else if ((pacchettoKidscb->isChecked() && pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
-                // kids e cinema selezionato
-                    emit erroreInput("troppiPacchetti");
-                }
-            else if((pacchettoKidscb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoCinemacb->isChecked()) {
-                    emit erroreInput("troppiPacchetti");
-                }
-            else if((pacchettoCinemacb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoKidscb->isChecked()) {
-                        emit erroreInput("troppiPacchetti");
-                }
 
-        else if(mesiLineEdit->text()=="0") {
-            emit erroreInput("mesiErrati");
-        }
-            else
-            {
-                if((pacchettoKidscb->isChecked() && pacchettoCinemacb->isChecked()) && pacchettoSportcb->isChecked()) {
-                    aggiornaTotale("s", 35);
-                }
-                QStringList *temp = new QStringList();
-                temp->push_back(nomeLineEdit->text()); // 0
-                temp->push_back(cognomeLineEdit->text()); // 1
-                temp->push_back(codFiscLineEdit->text()); // 2
-                temp->push_back(dateNascita->date().toString()); // 3
-                temp->push_back(emailLineEdit->text());
-
-                temp->push_back(pacchettoKidscb->isChecked()? "true":"false");
-                temp->push_back(titoloPKidsLabel->text());
-                temp->push_back(descPKidsLabel->text());
-                temp->push_back(costoPKidsLabel->text());
-                temp->push_back(schermiKLineEdit->text());
-                temp->push_back(kidsHDcheckBox->isChecked()? "true":"false");
-
-                temp->push_back(pacchettoCinemacb->isChecked()? "true":"false");
-                temp->push_back(titoloPCinemaLabel->text());
-                temp->push_back(descPCinemaLabel->text());
-                temp->push_back(costoPCinemaLabel->text());
-                temp->push_back(schermiCLineEdit->text());
-                temp->push_back(cinemaHDcheckBox->isChecked()? "true":"false");
-
-                temp->push_back(pacchettoSportcb->isChecked()? "true":"false");
-                temp->push_back(titoloPSportLabel->text());
-                temp->push_back(descPSportLabel->text());
-                temp->push_back(costoPSportLabel->text());
-                temp->push_back(schermiSLineEdit->text());
-                temp->push_back(sportsuperHDcheckBox->isChecked()? "true":"false");
-
-                temp->push_back(codiceSconto? "true":"false");
-                temp->push_back(codicescLineEdit->text());
-                temp->push_back(dateInAbb->date().toString());
-                temp->push_back(mesiLineEdit->text());
-
-                temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti
-                emit inviaStringaCliente(*temp);
-            }
-    }
-
-   void addClientWindow::buttonKplus(){
-       int a=schermiKLineEdit->text().toInt();
-       int b=4;
-       if(a<b) {
-           a=a+1;
-           double c=costoPKidsLabel->text().toDouble();
-           c=c+2;
-           aggiornaTotale("a", 2);
-           costoPKidsLabel->setText(QString::number(c));
-           schermiKLineEdit->setText(QString::number(a));
-       }
-   }
-
-   void addClientWindow::buttonKmin() {
-       int a=2;
-       int b=schermiKLineEdit->text().toInt();
-       if(a<b) {
-           b=b-1;
-       double c=costoPKidsLabel->text().toDouble();
-       c=c-2;
-       aggiornaTotale("r", 2);
-       costoPKidsLabel->setText(QString::number(c));
-       schermiKLineEdit->setText(QString::number(b));
-       }
-   }
-
-   void addClientWindow::buttonCplus(){
-       int a=schermiCLineEdit->text().toInt();
-       int b=4;
-       if(a<b) {
-           a=a+1;
-       double c=costoPCinemaLabel->text().toDouble();
-       c=c+2;
-       aggiornaTotale("a", 2);
-       costoPCinemaLabel->setText(QString::number(c));
-       schermiCLineEdit->setText(QString::number(a));
-       }
-   }
-
-   void addClientWindow::buttonCmin() {
-       int a=2;
-       int b=schermiCLineEdit->text().toInt();
-       if(a<b) {
-           b=b-1;
-       double c=costoPCinemaLabel->text().toDouble();
-       c=c-2;
-       aggiornaTotale("r", 2);
-       costoPCinemaLabel->setText(QString::number(c));
-       schermiCLineEdit->setText(QString::number(b));
-       }
-   }
-
-   void addClientWindow::buttonSplus(){
-       int a=schermiSLineEdit->text().toInt();
-       int b=4;
-       if(a<b) {
-           a=a+1;
-           double c=costoPSportLabel->text().toDouble();
-           c=c+4;
-           aggiornaTotale("a", 4);
-           costoPSportLabel->setText(QString::number(c));
-       schermiSLineEdit->setText(QString::number(a));
-   }
-       }
-
-   void addClientWindow::buttonSmin() {
-       int a=2;
-       int b=schermiSLineEdit->text().toInt();
-       if(a<b) {
-           b=b-1;
-           double c=costoPSportLabel->text().toDouble();
-           c=c-4;
-           aggiornaTotale("r", 4);
-           costoPSportLabel->setText(QString::number(c));
-       schermiSLineEdit->setText(QString::number(b));
-       }
-   }
-
-void addClientWindow::showErrorMessage(const QString &message)
+void addClientWindow::mostraKids()
 {
-   QDialog* errdialog= new QDialog(this);
-   QVBoxLayout* errlayout= new QVBoxLayout(errdialog);
-   errlayout->addWidget(new QLabel(message, errdialog));
-
-   errdialog->show();
+    if (pacchettoKidscb->isChecked()==true) {
+        kidsGroup->setVisible(true);
+        aggiornaTotale("a", costoPKidsLabel->text().toDouble());
+    }
+    else {
+        kidsGroup->setVisible(false);
+        aggiornaTotale("r", costoPKidsLabel->text().toDouble());
+    }
 }
 
-void addClientWindow::mostraEsitoC(string e)
+void addClientWindow::mostraCinema()
 {
-   QMessageBox esitoCouponBox;
-   if(e=="corretto") {
-       esitoCouponBox.critical(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
+    if (pacchettoCinemacb->isChecked()==true) {
+        cinemaGroup->setVisible(true);
+        aggiornaTotale("a", costoPCinemaLabel->text().toDouble());
     }
-   else if (e=="errato") {
-       esitoCouponBox.critical(this, "Coupon errato", "Il coupon inserito non è corretto. Riprovare con un altro codice.");
+    else {
+        cinemaGroup->setVisible(false);
+        aggiornaTotale("r", costoPCinemaLabel->text().toDouble());
     }
-   else if(e=="carrellovuoto") {
-       esitoCouponBox.critical(this, "Carrello vuoto", "Il carrello è vuoto quindi il coupon non può essere inserito. Aggiungere qualcosa nel carrello e riprovare.");
-   }
+}
+
+void addClientWindow::mostraSport()
+{
+    if (pacchettoSportcb->isChecked()==true) {
+        sportGroup->setVisible(true);
+        aggiornaTotale("a", costoPSportLabel->text().toDouble());
+    }
+    else {
+        sportGroup->setVisible(false);
+        aggiornaTotale("r", costoPSportLabel->text().toDouble());
+    }
+}
+
+void addClientWindow::mostraErroreInput(string i)
+{
+    QMessageBox erroreInputBox;
+    if (i== "mancaLineEdit")
+        erroreInputBox.critical(this,"Input errato","Compilare tutti i campi obbligatori.");
+    else if (i =="mancaCheckBox")
+        erroreInputBox.critical(this,"Input errato","Nessun pacchetto selezionato. Selezionare almeno uno dei pacchetti.");
+    else if (i=="mesiErrati")
+        erroreInputBox.critical(this,"Input errato", "Il numero di mesi selezionato non è valido. Inserire un valore maggiore di 0.");
+    else if(i=="troppiPacchetti")
+        erroreInputBox.critical(this, "Input errato", "Sono stati selezionati 2 pacchetti. Selezionare un pacchetto oppure tutti i pacchetti.");
+}
+
+void addClientWindow::successoCliente()
+{
+    QMessageBox clienteAggiuntoBox;
+    clienteAggiuntoBox.information(this,"Registrazione effettuata","Il cliente è stato aggiunto con successo!");
+}
+
+void addClientWindow::mostraErroreData(string d)
+{
+    QMessageBox erroreDataBox;
+    if(d=="dataAbb") {
+        erroreDataBox.critical(this,"Data inizio abbonamento non corretta", "La data selezionata non è valida. Selezionare una data di inizio abbonamento successiva o uguale a quella attuale");
+    }
+    else if (d=="dataNascita") {
+        erroreDataBox.critical(this, "Data di nascita non corretta", "La data selezionata non è valida. Selezionare una data di nascita con anno inferiore a quello attuale.");
+    }
 }
 
 void addClientWindow::verificaCoupon() {
-   double t=totaleAbbLabel->text().toDouble();
-   if(t>0) {
-       if(codicescLineEdit->text()=="UNIPD") {
+    double t=totaleAbbLabel->text().toDouble();
+    if ((pacchettoKidscb->isChecked() && pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
+    // kids e cinema selezionato
+    emit erroreInput("troppiPacchetti");
+        return ;
+    }
+    else if((pacchettoKidscb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoCinemacb->isChecked()) {
+        emit erroreInput("troppiPacchetti");
+        return ;
+    }
+    else if((pacchettoCinemacb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoKidscb->isChecked()) {
+        emit erroreInput("troppiPacchetti");
+        return ;
+    }
+    if(t>0) {
+        if(codicescLineEdit->text()=="UNIPD") {
             emit esitoCoupon("corretto");
             // chiama qualcosa che aggiorni il totale
             aggiornaTotale("s", 10);
@@ -552,12 +386,179 @@ void addClientWindow::verificaCoupon() {
             emit esitoCoupon("errato");
         }
    }
-   else {
-       codicescLineEdit->setText("");
-       emit esitoCoupon("carrellovuoto");
+    else {
+        codicescLineEdit->setText("");
+        emit esitoCoupon("carrellovuoto");
+    }
+}
+
+void addClientWindow::conferma()
+{
+    if(((dateInAbb->date().year() < QDate::currentDate().year()) || (dateInAbb->date().year() == QDate::currentDate().year() && dateInAbb->date().month() < QDate::currentDate().month()) || (dateInAbb->date().year() == QDate::currentDate().year() && dateInAbb->date().month() == QDate::currentDate().month() && dateInAbb->date().day() < QDate::currentDate().day()))) {
+        emit erroreData("dataAbb");
+    }
+    else if(dateNascita->date().year() >= QDate::currentDate().year()) {
+             emit erroreData("dataNascita");
+    }
+    else
+        if(nomeLineEdit->text()=="" || cognomeLineEdit->text()=="" || codFiscLineEdit->text()=="" || emailLineEdit->text()=="" || mesiLineEdit->text()=="") {
+            emit erroreInput("mancaLineEdit");
+        }
+        else if ((!pacchettoKidscb->isChecked() && !pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
+            emit erroreInput("mancaCheckBox");
+        }
+        else if ((pacchettoKidscb->isChecked() && pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
+            // kids e cinema selezionato
+            emit erroreInput("troppiPacchetti");
+        }
+        else if((pacchettoKidscb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoCinemacb->isChecked()) {
+                emit erroreInput("troppiPacchetti");
+        }
+        else if((pacchettoCinemacb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoKidscb->isChecked()) {
+            emit erroreInput("troppiPacchetti");
+        }
+
+    else if(mesiLineEdit->text()=="0") {
+        emit erroreInput("mesiErrati");
+    }
+    else {
+
+        QStringList *temp = new QStringList();
+        temp->push_back(nomeLineEdit->text()); // 0
+        temp->push_back(cognomeLineEdit->text()); // 1
+        temp->push_back(codFiscLineEdit->text()); // 2
+        temp->push_back(dateNascita->date().toString()); // 3
+        temp->push_back(emailLineEdit->text()); // 4
+
+        temp->push_back(pacchettoKidscb->isChecked()? "true":"false"); // 5
+        temp->push_back(titoloPKidsLabel->text()); // 6
+        temp->push_back(descPKidsLabel->text()); // 7
+        temp->push_back(costoPKidsLabel->text()); // 8
+        temp->push_back(schermiKLineEdit->text()); // 9
+        temp->push_back(kidsHDcheckBox->isChecked()? "true":"false"); // 10
+
+        temp->push_back(pacchettoCinemacb->isChecked()? "true":"false"); // 11
+        temp->push_back(titoloPCinemaLabel->text()); // 12
+        temp->push_back(descPCinemaLabel->text()); // 13
+        temp->push_back(costoPCinemaLabel->text()); // 14
+        temp->push_back(schermiCLineEdit->text()); // 15
+        temp->push_back(cinemaHDcheckBox->isChecked()? "true":"false"); // 16
+
+        temp->push_back(pacchettoSportcb->isChecked()? "true":"false"); // 17
+        temp->push_back(titoloPSportLabel->text()); // 18
+        temp->push_back(descPSportLabel->text()); // 19
+        temp->push_back(costoPSportLabel->text()); // 20
+        temp->push_back(schermiSLineEdit->text()); // 21
+        temp->push_back(sportsuperHDcheckBox->isChecked()? "true":"false"); // 22
+
+        temp->push_back(codiceSconto? "true":"false"); // 23
+        temp->push_back(codicescLineEdit->text()); // 24
+        temp->push_back(dateInAbb->date().toString()); //25
+        temp->push_back(mesiLineEdit->text()); // 26
+
+        temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti 27
+        emit inviaStringaCliente(*temp);
+    }
+}
+
+void addClientWindow::buttonKplus(){
+    int a=schermiKLineEdit->text().toInt();
+    int b=4;
+    if(a<b) {
+        a=a+1;
+        double c=costoPKidsLabel->text().toDouble();
+        c=c+2;
+        aggiornaTotale("a", 2);
+        costoPKidsLabel->setText(QString::number(c));
+        schermiKLineEdit->setText(QString::number(a));
+    }
+}
+
+void addClientWindow::buttonKmin() {
+    int a=2;
+    int b=schermiKLineEdit->text().toInt();
+    if(a<b) {
+        b=b-1;
+        double c=costoPKidsLabel->text().toDouble();
+        c=c-2;
+        aggiornaTotale("r", 2);
+        costoPKidsLabel->setText(QString::number(c));
+        schermiKLineEdit->setText(QString::number(b));
+    }
+}
+
+void addClientWindow::buttonCplus(){
+    int a=schermiCLineEdit->text().toInt();
+    int b=4;
+    if(a<b) {
+        a=a+1;
+        double c=costoPCinemaLabel->text().toDouble();
+        c=c+2;
+        aggiornaTotale("a", 2);
+        costoPCinemaLabel->setText(QString::number(c));
+        schermiCLineEdit->setText(QString::number(a));
+    }
+}
+
+void addClientWindow::buttonCmin() {
+    int a=2;
+    int b=schermiCLineEdit->text().toInt();
+    if(a<b) {
+        b=b-1;
+        double c=costoPCinemaLabel->text().toDouble();
+        c=c-2;
+        aggiornaTotale("r", 2);
+        costoPCinemaLabel->setText(QString::number(c));
+        schermiCLineEdit->setText(QString::number(b));
+    }
+}
+
+void addClientWindow::buttonSplus(){
+   int a=schermiSLineEdit->text().toInt();
+   int b=4;
+   if(a<b) {
+        a=a+1;
+        double c=costoPSportLabel->text().toDouble();
+        c=c+4;
+        aggiornaTotale("a", 4);
+        costoPSportLabel->setText(QString::number(c));
+        schermiSLineEdit->setText(QString::number(a));
+    }
+}
+
+void addClientWindow::buttonSmin() {
+   int a=2;
+   int b=schermiSLineEdit->text().toInt();
+   if(a<b) {
+        b=b-1;
+        double c=costoPSportLabel->text().toDouble();
+        c=c-4;
+        aggiornaTotale("r", 4);
+        costoPSportLabel->setText(QString::number(c));
+        schermiSLineEdit->setText(QString::number(b));
    }
 }
 
+
+void addClientWindow::mostraEsitoC(string e)
+{
+   QMessageBox esitoCouponBox;
+   if(e=="corretto")
+       esitoCouponBox.critical(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
+   else if (e=="errato")
+       esitoCouponBox.critical(this, "Coupon errato", "Il coupon inserito non è corretto. Riprovare con un altro codice.");
+   else if(e=="carrellovuoto")
+       esitoCouponBox.critical(this, "Carrello vuoto", "Il carrello è vuoto quindi il coupon non può essere inserito. Aggiungere qualcosa nel carrello e riprovare.");
+}
+
+void addClientWindow::showErrorInsMessage(const QString &message)
+{
+   QDialog* errdialog= new QDialog(this);
+   QVBoxLayout* errlayout= new QVBoxLayout(errdialog);
+   errlayout->addWidget(new QLabel(message, errdialog));
+
+   errdialog->show();
+}
 
 void addClientWindow::resettaInput()
 {
@@ -585,7 +586,8 @@ void addClientWindow::resettaInput()
    cinemaGroup->setVisible(false);
    sportGroup->setVisible(false);
    totaleAbbLabel->setText("0");
-   verificacButton->setEnabled(false);
-   codicescLineEdit->setEnabled(false);
+   verificacButton->setVisible(true);
+   verificacButton->setEnabled(true);
+   codicescLineEdit->setEnabled(true);
    codiceSconto=false;
 }

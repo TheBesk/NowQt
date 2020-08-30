@@ -4,8 +4,6 @@
 #include <QMessageBox>
 #include <iostream>
 #include<fstream>
-#include <QPainter>
-#include <QPdfWriter>
 #include <QFileDialog>
 #include "mainwindow.h"
 #include "addclientwindow.h"
@@ -14,6 +12,7 @@
 #include "container.h"
 #include "deeppointer.h"
 #include <stdexcept>
+#include "modclientwindow.h"
 
 using std::ofstream;
 using std::endl;
@@ -26,20 +25,23 @@ public:
     explicit controller(QObject *parent = nullptr);
     ~controller();
 public slots:
-    void openAddView() const;
+    void openAddView()const;
     void errInput(string);
     void errData(string);
     void esitoCoup(string);
     void aggClienteContainer(const QStringList);
-    void openDettView(const int) const;
+    void openDettView(const int)const;
+    void openModView() const;
     void resetListaClienti();
     void removeC(const int);
     void clienteRimShowBox();
+    void rimpiazzaItem(const int,const QStringList);
 
 private:
     mainwindow* view;
     addClientWindow *addClientW;
     dettClientWindow *dettClientW;
+    modClientWindow *modClientW;
     model* m;
     QMap<int, int> indexTranslate;
 };

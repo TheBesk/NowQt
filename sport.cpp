@@ -1,6 +1,6 @@
 #include "sport.h"
 
-sport::sport(string n, string c, int aN, int mN, int gN, string cf, string em, int aA, int mA, int gA, unsigned int me, bool cosc, string coup, double tot, string tS, string dS, double cS, unsigned int scS, unsigned int stS, bool shdS): nowqt(n, c, aN, mN, gN, cf, em, aA, mA, gA, me, cosc, coup, tot), titoloS(tS), descrizioneS(dS), costoS(cS), schermicontS(scS), schermitotS(stS), superhdS(shdS) {}
+sport::sport(string n, string c, int aN, int mN, int gN, string cf, string em, int aA, int mA, int gA, unsigned int me, bool cosc, string coup, double tot, string tS, string dS, double cS, unsigned int scS, bool shdS): nowqt(n, c, aN, mN, gN, cf, em, aA, mA, gA, me, cosc, coup, tot), titoloS(tS), descrizioneS(dS), costoS(cS), schermicontS(scS), superhdS(shdS) {}
 
 sport *sport::clone() const
 {
@@ -9,12 +9,12 @@ sport *sport::clone() const
 
 string sport::getTipoPacc() const
 {
-    return "sport";
+    return "Sport";
 }
 
 double sport::getTot() const
 {
-    return costoS;
+    return totale;
 }
 
 string sport::getTitoloS() const
@@ -37,11 +37,6 @@ unsigned int sport::getSchermiContS() const
     return schermicontS;
 }
 
-unsigned int sport::getSchermiTotS() const
-{
-    return schermitotS;
-}
-
 bool sport::isSuperHdS() const
 {
     return superhdS;
@@ -49,10 +44,8 @@ bool sport::isSuperHdS() const
 
 void sport::aumentaSchermiS()
 {
-    if(schermicontS<schermitotS) {
-        schermicontS++;
-        costoS=costoS+4;
-    }
+    schermicontS++;
+    costoS=costoS+4;
 }
 
 void sport::aumentaCostoSHD()

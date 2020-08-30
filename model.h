@@ -21,21 +21,25 @@ class model : public QObject
 public:
     model(QString path);
     ~model();
-    QStringList getCampiCliente(const unsigned int) const;
-    deepPointer<nowqt> mostraCliente(const unsigned int) const;
-    QStringList getListaClientiT(QMap< int, int> &) const;
+  //  QStringList getCampiCliente(const unsigned int) const;
+    deepPointer<nowqt> mostraCliente(const int) const;
+    QStringList getListaClientiT(QMap<int, int> &) const;
+    void removeC(const int);
     bool getModificato() const;
-//    QStringList getListaClientiPDF() const;
+    QStringList getCampiCliente(const int) const;
+    QStringList getListaClientiPDF() const;
     bool controlloCliente(const QString) const;
+    double applicaScontoAI(double, unsigned int);
 
 public slots:
     void aggNelContainer(const QStringList);
-    void removeC(const int);
-    
+    void modificaItem(const int,const QStringList);
+
 signals:
     void clienteAggiunto();
     void clienteRimosso();
-    
+    void clienteModificato();
+
 private:
     QString path;
     container<deepPointer<nowqt>> *datiTotali;

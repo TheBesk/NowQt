@@ -1,18 +1,12 @@
 #ifndef ADDCLIENTWINDOW_H
 #define ADDCLIENTWINDOW_H
 
-#include "viewlistac.h"
-#include "nowqt.h"
-#include "kids.h"
-#include "cinema.h"
-#include "sport.h"
-#include "allinclusive.h"
-
+#include <QObject>
 #include <QDialog>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QCheckBox>
 #include <QGroupBox>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QFormLayout>
 #include <QLineEdit>
@@ -21,7 +15,6 @@
 #include <QPushButton>
 #include <QStringList>
 #include <QMessageBox>
-
 using std::string;
 
 class addClientWindow : public QDialog
@@ -29,12 +22,13 @@ class addClientWindow : public QDialog
     Q_OBJECT
 public:
     addClientWindow(QWidget *parent =nullptr);
-    void mostraErroreInput(string);
-    void successoCliente();
-    void mostraErroreData(string);
+    virtual void mostraErroreInput(string);
+    virtual void mostraErroreData(string);
     void mostraEsitoC(string);
-    void showErrorMessage(const QString& message);
+    void successoCliente();
+    void showErrorInsMessage(const QString& message);
     bool codiceSconto;
+
 
 public slots:
     virtual void conferma();
@@ -55,20 +49,22 @@ public slots:
     void aggiornaCostoSHD();
 
 signals:
+    virtual void erroreInput(string);
     void esitoCoupon(string);
-    void erroreData(string);
-    void erroreInput(string);
+    virtual void erroreData(string);
     void inviaStringaCliente(const QStringList);
-    
+
 protected:
     QVBoxLayout* verticalDxLayout;
     QHBoxLayout* mainLayout, *hdestraBottoni, *schermiKHLayout, *schermiCHLayout, *schermiSHLayout, *scontoHLayout;
-    QCheckBox *pacchettoKidscb, *pacchettoCinemacb, *pacchettoSportcb, *kidsHDcheckBox, *cinemaHDcheckBox, *sportsuperHDcheckBox;
+    QLabel *introLabel, *personLabel, *avvertLabel, *scontoLabel;
     QLineEdit *nomeLineEdit, *cognomeLineEdit, *codFiscLineEdit, *emailLineEdit, *mesiLineEdit, *codicescLineEdit, *schermiKLineEdit, *schermiCLineEdit, *schermiSLineEdit;
     QLabel *totaleAbbLabel, *titoloPKidsLabel, *descPKidsLabel, *costoPKidsLabel, *titoloPCinemaLabel, *descPCinemaLabel, *costoPCinemaLabel, *titoloPSportLabel, *descPSportLabel, *costoPSportLabel;
+    QCheckBox *pacchettoKidscb, *pacchettoCinemacb, *pacchettoSportcb, *kidsHDcheckBox, *cinemaHDcheckBox, *sportsuperHDcheckBox;
     QDateEdit *dateInAbb, *dateNascita;
-    QPushButton* salvaButton, *annullaButton, *aggiungisKButton, *rimuovisKButton, *aggiungisCButton, *rimuovisCButton, *aggiungisSButton, *rimuovisSButton, *verificacButton;
     QGroupBox *kidsGroup, *cinemaGroup, *sportGroup;
+    QPushButton* salvaButton, *annullaButton, *aggiungisKButton, *rimuovisKButton, *aggiungisCButton, *rimuovisCButton, *aggiungisSButton, *rimuovisSButton, *verificacButton;
+
 };
 
 #endif // ADDCLIENTWINDOW_H

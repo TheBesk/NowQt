@@ -35,7 +35,8 @@ SOURCES += \
     addclientwindow.cpp \
     controller.cpp \
     model.cpp \
-    dettclientwindow.cpp
+    dettclientwindow.cpp \
+    modclientwindow.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     model.h \
     dettclientwindow.h \
     container.h \
-    deeppointer.h
+    deeppointer.h \
+    modclientwindow.h
 
 FORMS += \
         mainwindow.ui

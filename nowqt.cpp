@@ -91,45 +91,26 @@ void nowqt::aggiornaTot()
     }
 }
 
-double nowqt::calcolaTotAbb(unsigned int m, double t)
+double nowqt::calcolaTotAbb()
 {
-    return t*m;
+    return (getMesi()*getTot());
 }
 
-QDate nowqt::calcolaFiAbb(QDate inizioabb, unsigned int mesi) // ci pensiamo
+int nowqt::getAnnoFiAbb() const
 {
-
+    return (getMesi()/12);
 }
 
-
-bool nowqt::operator<(const nowqt& c) const
+int nowqt::getMeseFiAbb() const
 {
-    if(nome<c.getNome())
-        return true;
-    else if (nome == c.getNome()) {
-        if (cognome < c.getCognome())
-            return true;
-        else if (cognome == c.getCognome()) {
-            if (codicefiscale < c.getCodFisc())
-                return true;
-        }
-    }
-    return false;
+    return (getMesi()%12);
 }
 
-bool nowqt::operator>(const nowqt& c) const
-{
-    if(nome>c.getNome())
-        return true;
-    else if (nome == c.getNome()) {
-        if (cognome > c.getCognome())
-            return true;
-        else if (cognome == c.getCognome()) {
-            if (codicefiscale > c.getCodFisc())
-                return true;
-        }
-    }
-    return false;
+QDate nowqt::CalcolaFineAbb() const {
+    QDate FiAbb=getDataInAbb();
+    FiAbb=FiAbb.addMonths(getMesi()%12);
+    FiAbb=FiAbb.addYears(getAnnoFiAbb());
+    return FiAbb;
 }
 
 bool nowqt::operator==(const nowqt& n) const{

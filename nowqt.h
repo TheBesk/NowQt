@@ -5,11 +5,9 @@
 #include <string>
 using std::string;
 
-
 class nowqt {
 
 public:
-
     nowqt(string="", string="", int=2000, int=1, int=1, string="", string="", int=2000, int=1, int=1, unsigned int=1, bool=false, string="", double=0);
     virtual ~nowqt() = default;
     // metodi virtuali puri
@@ -35,12 +33,12 @@ public:
 
     void verificaCoupon();
     void aggiornaTot();
-    double calcolaTotAbb(unsigned int, double); // stampa il prezzo che paga il cliente per tuttta la durata dell'abbonamento
-    QDate calcolaFiAbb(QDate, unsigned int); // calcola la fine dell'abbonamento e stampa la data
-
+    double calcolaTotAbb(); // stampa il prezzo che paga il cliente per tuttta la durata dell'abbonamento
+    QDate CalcolaFineAbb() const; // calcola la fine dell'abbonamento e stampa la data
+    int getGiornoFiAbb() const;
+    int getMeseFiAbb() const;
+    int getAnnoFiAbb() const;
     virtual bool operator==(const nowqt&) const;
-    virtual bool operator<(const nowqt&) const;
-    virtual bool operator>(const nowqt&) const;
 
 private:
     string nome;
@@ -52,6 +50,7 @@ private:
     unsigned int mesi;
     bool codicesconto;
     string coupon;
+protected:
     double totale;
 };
 

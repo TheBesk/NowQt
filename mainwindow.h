@@ -1,8 +1,7 @@
 ﻿#ifndef GUI_H
 #define GUI_H
-#include <QWidget>
 
-#include"viewlistac.h"
+#include "viewlistac.h"
 #include "nowqt.h"
 #include "kids.h"
 #include "cinema.h"
@@ -11,6 +10,7 @@
 #include "container.h"
 #include"deeppointer.h"
 
+#include <QWidget>
 #include <QMenuBar>
 #include <QComboBox>
 #include <QVBoxLayout>
@@ -32,45 +32,35 @@ class mainwindow : public QWidget
 public:
     mainwindow(QWidget *parent =nullptr);
     bool isSelected() const;
-    unsigned int getIndexSelected() const;
+    int getIndexSelected() const;
     void mostraClienti(const QStringList);
-    //    void mostraClienti(const QStringList);
-    // QString getParolaCercata() const;
     void nessunSelezionato();
-      // void visualizzaDettagliCliente(deepPointer<cliente>) const;
-      // void resetDettCliente() const;
-
-
+    // void visualizzaDettagliCliente(deepPointer<cliente>) const;
+    // void resetDettCliente() const;
 public slots:
-   // void richiesta(string);
-    void showInfoCliente();
     void richRimuoviC();
-private:
+    void showInfoCliente();
 
+private:
     QComboBox * tipoP;
     QVBoxLayout *mainLayout, *verticalDxLayout, *verticalSxLayout, *vPulsanti;
     QHBoxLayout *divH, *layoutRicerca;
     QLineEdit* lineCerca;
     QPushButton* addButton,*modButton,*removeButton, *dettButton;
-
-  viewListaC *listaClienti;
-  QPixmap *pix;
-  QLabel *filtroLabel, *image; //*cognomeClienteLabel,*codiceFClienteLabel,* LuogoDNLabel,*residenzaClienteLabel,*viaClienteLabel, *telefonoClienteLabel, *mailClienteLabel, *datadNClienteLabel,*studenteClienteLabel,*AbbonamentoPiscinaLabel, *nomeIstruttorePiscinaLabel,*corsoNuotoClienteLabel, *AbbonamentoPalestraLabel,*nomeIstruttorePalestraLabel,*schedaPalestraClienteLabel;
+    viewListaC *listaClienti;
+    QPixmap *pix;
+    QLabel *filtroLabel, *image;
     QGroupBox* clientiGroup; //piscinaGroup,* palestraGroup, *filtriGroup;
-   // void setMainWindowStyle();
- //   void closeEvent(QCloseEvent*) override;
+    // void setMainWindowStyle();
+    // void closeEvent(QCloseEvent*) override;
 
 signals:
     void signOpenAddWindow();
     void signOpenDettWindow(const int);
-    void rimuoviCliente(const int);
-    /*void infoWindow();
     void signOpenModWindow();
-    void cercaRuntime();
-    void salvaFileMenu();
-    void richiestaRimozCliente(const unsigned int);
-    void richiestaShowCliente(const unsigned int);
-
+    void rimuoviCliente(const int);
+    /*
+    void signOpenModWindow();
     void controllaModificato();
     void filtroKids();
     void filtroCinema();

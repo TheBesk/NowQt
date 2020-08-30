@@ -27,23 +27,15 @@ class dettClientWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit dettClientWindow(QWidget *parent =nullptr);
-    //void caricaDati(const QStringList &,const unsigned int);
+    dettClientWindow(QWidget *parent =nullptr);
     void visualizzaDettagliCliente(deepPointer<nowqt>) const;
 
-/*
-    void resetDettCliente() const;
-    void resetColoreFiltro() const;
-
-public slots:
-    void showInfoCliente();
-*/
 protected:
     QHBoxLayout* mainLayout, *titHLayout, *divH, *cHButton;
     QVBoxLayout *pacchVLayout, *divV;
     QPushButton *closeButton;
-    QLabel *nomeClienteLabel, *cognomeClienteLabel, *codiceFiscClienteLabel, *dataNascitaClienteLabel, *emailClienteLabel, *pacchClienteLabel, *tPacch1, *offertaKidsCLabel, *descKidsLabel, *descSportLabel, *schermiContKLabel, *hdKidsLabel, *tPacch2, *offertaCinemaCLabel, *descCinemaLabel, *schermiContCLabel, *hdCinemaLabel, *tPacch3, *offertaSportCLabel, *schermiContSLabel, *hdSportLabel, *dataInizioALabel, *mesiAbbLabel, *dataFineALabel, *BcodiceScontoLabel, *tcouponLabel, *TcodiceScontoLabel, *totMeseAbbLabel, *totMesiAbbLabel;
     QGroupBox* daticlienteGroup, *statoabbGroup, *pacchetto1Group, *pacchetto2Group, *pacchetto3Group;
+    QLabel *nomeClienteLabel, *cognomeClienteLabel, *codiceFiscClienteLabel, *dataNascitaClienteLabel, *emailClienteLabel, *pacchClienteLabel, *tPacch1, *offertaKidsCLabel, *descKidsLabel, *schermiContKLabel, *hdKidsLabel, *tPacch2, *offertaCinemaCLabel, *descCinemaLabel, *schermiContCLabel, *hdCinemaLabel, *tPacch3, *offertaSportCLabel, *descSportLabel, *schermiContSLabel, *hdSportLabel, *dataInizioALabel, *mesiAbbLabel, *dataFineALabel, *BcodiceScontoLabel, *tcouponLabel, *TcodiceScontoLabel, *totMeseAbbLabel, *totMesiAbbLabel;
 
 };
 

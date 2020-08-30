@@ -1,6 +1,6 @@
 #include "dettclientwindow.h"
 
-dettClientWindow::dettClientWindow(QWidget *parent) : QDialog(parent), pacchetto1Group(new QGroupBox(this)), pacchetto2Group(new QGroupBox(this)), pacchetto3Group(new QGroupBox(this)), nomeClienteLabel(new QLabel(this)), cognomeClienteLabel(new QLabel(this)), codiceFiscClienteLabel(new QLabel(this)), dataNascitaClienteLabel(new QLabel(this)), emailClienteLabel(new QLabel(this)), pacchClienteLabel(new QLabel(this)), tPacch1(new QLabel(this)), offertaKidsCLabel(new QLabel(this)), descKidsLabel(new QLabel(this)), schermiContKLabel(new QLabel(this)), hdKidsLabel(new QLabel(this)), tPacch2(new QLabel(this)), offertaCinemaCLabel(new QLabel(this)), descCinemaLabel(new QLabel(this)), schermiContCLabel(new QLabel(this)), hdCinemaLabel(new QLabel(this)), tPacch3(new QLabel(this)), offertaSportCLabel(new QLabel(this)), descSportLabel(new QLabel(this)), schermiContSLabel(new QLabel(this)), hdSportLabel(new QLabel(this)), dataInizioALabel(new QLabel(this)), mesiAbbLabel(new QLabel(this)), dataFineALabel(new QLabel(this)), BcodiceScontoLabel(new QLabel(this)), tcouponLabel(new QLabel(this)), TcodiceScontoLabel(new QLabel(this)), totMeseAbbLabel(new QLabel(this)), totMesiAbbLabel(new QLabel(this))
+dettClientWindow::dettClientWindow(QWidget *parent) : QDialog(parent), pacchetto1Group(new QGroupBox(this)), pacchetto2Group(new QGroupBox(this)), pacchetto3Group(new QGroupBox(this)), nomeClienteLabel(new QLabel(this)), cognomeClienteLabel(new QLabel(this)), codiceFiscClienteLabel(new QLabel(this)), dataNascitaClienteLabel(new QLabel(this)), emailClienteLabel(new QLabel(this)), pacchClienteLabel(new QLabel(this)), offertaKidsCLabel(new QLabel(this)), descKidsLabel(new QLabel(this)), schermiContKLabel(new QLabel(this)), hdKidsLabel(new QLabel(this)), offertaCinemaCLabel(new QLabel(this)), descCinemaLabel(new QLabel(this)), schermiContCLabel(new QLabel(this)), hdCinemaLabel(new QLabel(this)), offertaSportCLabel(new QLabel(this)), descSportLabel(new QLabel(this)), schermiContSLabel(new QLabel(this)), hdSportLabel(new QLabel(this)), dataInizioALabel(new QLabel(this)), mesiAbbLabel(new QLabel(this)), dataFineALabel(new QLabel(this)), BcodiceScontoLabel(new QLabel(this)), tcouponLabel(new QLabel(this)), TcodiceScontoLabel(new QLabel(this)), totMeseAbbLabel(new QLabel(this)), totMesiAbbLabel(new QLabel(this))
  {
     setMinimumSize(1000,400);
     setWindowTitle("Finestra dettagli cliente");
@@ -29,24 +29,21 @@ dettClientWindow::dettClientWindow(QWidget *parent) : QDialog(parent), pacchetto
     daticlienteGroup->setLayout(form1Layout);
     divH->addWidget(daticlienteGroup);
 
-    titHLayout= new QHBoxLayout();
     QLabel *pacchLabel= new QLabel(tr("Pacchetto scelto: ")); // "ALL INCLUSIVE - KIDS + CINEMA + SPORT" oppure "KIDS" oppure "CINEMA" oppure "SPORT"
     pacchLabel->setAlignment(Qt::AlignCenter);
-    titHLayout->addWidget(pacchLabel);
-    titHLayout->addWidget(pacchClienteLabel);
-    pacchVLayout->addLayout(titHLayout);
+    pacchVLayout->addWidget(pacchLabel);
+    pacchClienteLabel->setAlignment(Qt::AlignCenter);
+    pacchVLayout->addWidget(pacchClienteLabel);
 
     // pacchetti si / no,
-
     pacchVLayout->addWidget(pacchetto1Group);
     QFormLayout *formKLayout = new QFormLayout();
 
-    tPacch1->setText("Pacchetto 1: ");
     QLabel *dPacch1= new QLabel(tr("Descrizione: "));
     QLabel *scPacch1= new QLabel(tr("Schermi in cont.: "));
-    QLabel *hdPacch1= new QLabel(tr("HD incluso: "));
+    QLabel *hdPacch1= new QLabel(tr("HD: "));
 
-    formKLayout->addRow(tPacch1, offertaKidsCLabel);
+    formKLayout->addRow(offertaKidsCLabel);
     formKLayout->addRow(dPacch1, descKidsLabel);
     formKLayout->addRow(scPacch1, schermiContKLabel );
     formKLayout->addRow(hdPacch1, hdKidsLabel);
@@ -55,12 +52,11 @@ dettClientWindow::dettClientWindow(QWidget *parent) : QDialog(parent), pacchetto
     pacchVLayout->addWidget(pacchetto2Group);
     QFormLayout *formCLayout = new QFormLayout();
 
-    tPacch2->setText("Pacchetto 2: "); // string
     QLabel *dPacch2= new QLabel(tr("Descrizione: ")); // string
     QLabel *scPacch2= new QLabel(tr("Schermi in cont.: ")); // unsigned int
-    QLabel *hdPacch2= new QLabel(tr("HD incluso: ")); // si / no
+    QLabel *hdPacch2= new QLabel(tr("HD: ")); // si / no
 
-    formCLayout->addRow(tPacch2, offertaCinemaCLabel);
+    formCLayout->addRow(offertaCinemaCLabel);
     formCLayout->addRow(dPacch2, descCinemaLabel);
     formCLayout->addRow(scPacch2, schermiContCLabel);
     formCLayout->addRow(hdPacch2, hdCinemaLabel);
@@ -70,15 +66,18 @@ dettClientWindow::dettClientWindow(QWidget *parent) : QDialog(parent), pacchetto
     pacchVLayout->addWidget(pacchetto3Group);
     QFormLayout *formSLayout = new QFormLayout();
 
-    tPacch3->setText("Pacchetto 3: ");
     QLabel *dPacch3= new QLabel(tr("Descrizione: "));
     QLabel *scPacch3= new QLabel(tr("Schermi in cont.: "));
-    QLabel *hdPacch3= new QLabel(tr("Super HD incluso: "));
+    QLabel *hdPacch3= new QLabel(tr("Super HD: "));
 
-    formSLayout->addRow(tPacch3, offertaSportCLabel);
+    formSLayout->addRow(offertaSportCLabel);
     formSLayout->addRow(dPacch3, descSportLabel);
     formSLayout->addRow(scPacch3, schermiContSLabel);
     formSLayout->addRow(hdPacch3, hdSportLabel);
+
+    offertaKidsCLabel->setAlignment(Qt::AlignCenter);
+    offertaCinemaCLabel->setAlignment(Qt::AlignCenter);
+    offertaSportCLabel->setAlignment(Qt::AlignCenter);
 
     pacchetto3Group->setLayout(formSLayout);
     divH->addLayout(pacchVLayout);
@@ -139,12 +138,16 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
     emailClienteLabel->setText(email);
     dataInizioALabel->clear();
     dataInizioALabel->setText(clienteDaVisualizzare->getDataInAbb().toString("dd/MM/yyyy"));
+    dataFineALabel->clear();
+    dataFineALabel->setText(clienteDaVisualizzare->CalcolaFineAbb().toString("dd/MM/yyyy"));
     mesiAbbLabel->clear();
     QString m= QString::number(clienteDaVisualizzare->getMesi());
     mesiAbbLabel->setText(m);
     BcodiceScontoLabel->clear();
     if (clienteDaVisualizzare->isCodSconto()) {
         BcodiceScontoLabel->setText("Sì");
+        tcouponLabel->show();
+        TcodiceScontoLabel->show();
         TcodiceScontoLabel->clear();
         TcodiceScontoLabel->setText(QString::fromStdString(clienteDaVisualizzare->getCoupon()));
     }
@@ -157,8 +160,9 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
     totMeseAbbLabel->clear();
     QString t= QString::number(clienteDaVisualizzare->getTot());
     totMeseAbbLabel->setText(t);
+    QString ta=QString::number(clienteDaVisualizzare->calcolaTotAbb());
     totMesiAbbLabel->clear();
-    totMesiAbbLabel->setText("Sistemare"); // sistemare questa funzione
+    totMesiAbbLabel->setText(ta); // sistemare questa funzione
 
     pacchClienteLabel->clear();
     offertaKidsCLabel->clear();
@@ -176,12 +180,18 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
 
     if (dynamic_cast<allinclusive*>(&(*(clienteDaVisualizzare))) != nullptr) {
         auto abbai = dynamic_cast<allinclusive*>(&(*(clienteDaVisualizzare)));
+        QString ai = QString::fromStdString((abbai->getTipoPacc()));
         QString k = QString::fromStdString(abbai->getTitoloK());
         QString c = QString::fromStdString(abbai->getTitoloC());
         QString s = QString::fromStdString(abbai->getTitoloS());
 
-        pacchClienteLabel->setText("All inclusive: \n"+k+" + "+c+" + "+s);
-        offertaKidsCLabel->setText(QString::fromStdString(abbai->getTitoloK()));
+        pacchetto1Group->setVisible(true);
+        pacchetto2Group->setVisible(true);
+        pacchetto3Group->setVisible(true);
+
+        pacchClienteLabel->setText(ai+": "+k+" + "+c+" + "+s);
+        offertaKidsCLabel->show();
+        offertaKidsCLabel->setText(k);
         descKidsLabel->setText(QString::fromStdString(abbai->getDescK()));
         schermiContKLabel->setText(QString::number(abbai->getSchermiContK()));
         if (abbai->isHdK()) {
@@ -190,8 +200,8 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
         else {
             hdKidsLabel->setText("No");
         }
-
-        offertaCinemaCLabel->setText(QString::fromStdString(abbai->getTitoloC()));
+        offertaCinemaCLabel->show();
+        offertaCinemaCLabel->setText(c);
         descCinemaLabel->setText(QString::fromStdString(abbai->getDescC()));
         schermiContCLabel->setText(QString::number(abbai->getSchermiContC()));
         if (abbai->isHdC()) {
@@ -200,8 +210,8 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
         else {
             hdCinemaLabel->setText("No");
         }
-
-        offertaSportCLabel->setText(QString::fromStdString(abbai->getTitoloS()));
+        offertaSportCLabel->show();
+        offertaSportCLabel->setText(s);
         descSportLabel->setText(QString::fromStdString(abbai->getDescS()));
         schermiContSLabel->setText(QString::number(abbai->getSchermiContS()));
         if (abbai->isSuperHdS()) {
@@ -214,11 +224,11 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
 
     else if (dynamic_cast<kids*>(&(*(clienteDaVisualizzare))) != nullptr) {
         auto abbk = dynamic_cast<kids*>(&(*(clienteDaVisualizzare)));
-        QString k = QString::fromStdString(abbk->getTitoloK());
+        QString k = QString::fromStdString(abbk->getTipoPacc());
         pacchClienteLabel->setText(k);
+        pacchetto1Group->setVisible(true);
         pacchetto2Group->setVisible(false);
         pacchetto3Group->setVisible(false);
-        tPacch1->hide();
         offertaKidsCLabel->hide();
         descKidsLabel->setText(QString::fromStdString(abbk->getDescK()));
         schermiContKLabel->setText(QString::number(abbk->getSchermiContK()));
@@ -232,11 +242,11 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
     }
     else if (dynamic_cast<cinema*>(&(*(clienteDaVisualizzare))) != nullptr) {
         auto abbc = dynamic_cast<cinema*>(&(*(clienteDaVisualizzare)));
-        QString c = QString::fromStdString(abbc->getTitoloC());
+        QString c = QString::fromStdString(abbc->getTipoPacc());
         pacchClienteLabel->setText(c);
         pacchetto1Group->setVisible(false);
+        pacchetto2Group->setVisible(true);
         pacchetto3Group->setVisible(false);
-        tPacch2->hide();
         offertaCinemaCLabel->hide();
         descCinemaLabel->setText(QString::fromStdString(abbc->getDescC()));
         schermiContCLabel->setText(QString::number(abbc->getSchermiContC()));
@@ -250,11 +260,11 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
     }
     else if (dynamic_cast<sport*>(&(*(clienteDaVisualizzare))) != nullptr) {
         auto abbs = dynamic_cast<sport*>(&(*(clienteDaVisualizzare)));
-        QString s = QString::fromStdString(abbs->getTitoloS());
+        QString s = QString::fromStdString(abbs->getTipoPacc());
         pacchClienteLabel->setText(s);
         pacchetto1Group->setVisible(false);
         pacchetto2Group->setVisible(false);
-        tPacch3->hide();
+        pacchetto3Group->setVisible(true);
         offertaSportCLabel->hide();
         descSportLabel->setText(QString::fromStdString(abbs->getDescS()));
         schermiContSLabel->setText(QString::number(abbs->getSchermiContS()));
@@ -266,42 +276,3 @@ void dettClientWindow::visualizzaDettagliCliente(deepPointer<nowqt> clienteDaVis
         }
     }
 }
-
-
-/*void dettClientWindow::caricaDati(const QStringList& c, const unsigned int i){
-    ind = i;
-    abbonamentoPiscinaCheckbox->setChecked(c.at(17)=="true"? true : false);
-    if (abbonamentoPiscinaCheckbox->isChecked()==true)
-    {
-        piscinaGroup->setVisible(true);
-        dateScadPiscina->setDate(QDate::fromString(c.at(11)));
-        nomeIstruttorePiscinaEdit->setText(c.at(12));
-        corsoNuotoCheckbox->setChecked(c.at(13)=="true"? true : false);
-    }
-    else
-        piscinaGroup->setVisible(false);
-
-    abbonamentoPalestraCheckbox->setChecked(c.at(18)=="true"? true : false);
-    if (abbonamentoPalestraCheckbox->isChecked()==true)
-    {
-        palestraGroup->setVisible(true);
-        dateScadPalestra->setDate(QDate::fromString(c.at(14)));
-        nomeIstruttorePalestraEdit->setText(c.at(15));
-        schedaPalestraCheckbox->setChecked(c.at(16)=="true"? true : false);
-    }
-    else
-        palestraGroup->setVisible(false);
-
-    nomeLineEdit->setText(c.at(0));
-    cognomeLineEdit->setText(c.at(1));
-    codFiscLineEdit->setText(c.at(2));
-    ldnLineEdit->setText(c.at(3));
-    residenzaLineEdit->setText(c.at(4));
-    viaLineEdit->setText(c.at(5));
-    numeroviaLineEdit->setText(c.at(6));
-    telefonoLineEdit->setText(c.at(7));
-    mailLineEdit->setText(c.at(8));
-    dateNascita->setDate(QDate::fromString(c.at(9)));
-    studenteCheckbox->setChecked(c.at(10)=="true"? true : false);
-}
-*/

@@ -2,19 +2,19 @@
 
 mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new viewListaC(this))
 {
-  setWindowTitle("NowQT");
-  mainLayout = new QVBoxLayout(this);
+    setWindowTitle("NowQT");
+    mainLayout = new QVBoxLayout(this);
 
-  QMenuBar* menubar = new QMenuBar(this);
-  QMenu* menu= new QMenu("File",menubar);
-  QAction* exit = new QAction("Esci",menu);
+    QMenuBar* menubar = new QMenuBar(this);
+    QMenu* menu= new QMenu("File",menubar);
+    QAction* exit = new QAction("Esci",menu);
 
-  menu->addAction(exit);
-  menubar->addMenu(menu);
-  mainLayout->addWidget(menubar);
+    menu->addAction(exit);
+    menubar->addMenu(menu);
+    mainLayout->addWidget(menubar);
 
- // setMainWindowStyle();
-  verticalSxLayout = new QVBoxLayout();
+    // setMainWindowStyle();
+    verticalSxLayout = new QVBoxLayout();
 
     verticalDxLayout = new QVBoxLayout();
     divH = new QHBoxLayout();
@@ -57,7 +57,6 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
     lineCerca->setPlaceholderText("Cerca cliente");
     lineCerca->setMinimumWidth(250);
 
-
     layoutRicerca->addWidget(lineCerca);
     QLabel *filtroLabel = new QLabel(tr("Filtra per "));
     layoutRicerca->addWidget(filtroLabel);
@@ -76,12 +75,9 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
 
     connect(addButton, SIGNAL(clicked()), this, SIGNAL(signOpenAddWindow()));
     connect(exit, SIGNAL(triggered()), this, SLOT(close()));
-    //connect(modButton, SIGNAL(clicked()), this, SIGNAL(signEsportaPDFClienti())); SIGNAL editClient
     connect(dettButton, SIGNAL(clicked()), this, SLOT(showInfoCliente()));
     connect(removeButton, SIGNAL(clicked()),this, SLOT(richRimuoviC()));
-   // connect(modButton, SIGNAL(clicked()), this, SIGNAL(signOpenModWindow()));
-//    connect(listaClienti, SIGNAL(itemSelectionChanged()), this, SLOT(showInfoCliente()));
-
+    connect(modButton, SIGNAL(clicked()), this, SIGNAL(signOpenModWindow()));
 }
 
 void mainwindow::mostraClienti(const QStringList datiCliente)
@@ -114,17 +110,16 @@ void mainwindow::showInfoCliente(){
     }
 }
 
-unsigned int mainwindow::getIndexSelected() const
-{
-    return listaClienti->getIndex();
-}
-
 void mainwindow::richRimuoviC()
 {
     if(listaClienti->isSomeoneSelected())
         emit rimuoviCliente(listaClienti->getIndex());
-    else{
+    else
         nessunSelezionato();
-    }
+}
 
-   }
+int mainwindow::getIndexSelected() const
+{
+    return listaClienti->getIndex();
+}
+

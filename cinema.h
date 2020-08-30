@@ -9,10 +9,9 @@ private:
     string descrizioneC;
     double costoC;
     unsigned int schermicontC;
-    unsigned int schermitotC;
     bool hdC;
 public:
-    cinema(string="", string="", int=2000, int=1, int=1, string="", string="", int=2000, int=1, int=1, unsigned int=1, bool=false, string="", double=0, string="Offerta Cinema", string="Film sempre nuovi da non perdere.", double=10, unsigned int=2, unsigned int=4, bool=false);
+    cinema(string="", string="", int=2000, int=1, int=1, string="", string="", int=2000, int=1, int=1, unsigned int=1, bool=false, string="", double=0, string="Offerta Cinema", string="Film sempre nuovi da non perdere.", double=10, unsigned int=2, bool=false);
     virtual ~cinema() = default;
     cinema* clone() const override;
     virtual string getTipoPacc() const;
