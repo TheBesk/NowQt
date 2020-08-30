@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>risorse/rsz_nowqt.jpg</file>
+        <file>icone/nowqt_icon.ico</file>
     </qresource>
 </RCC>
