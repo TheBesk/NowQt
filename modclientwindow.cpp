@@ -214,5 +214,6 @@ void modClientWindow::conferma(){
 
         temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti
         emit rimpiazzaCliente(ind, *temp);
+        delete temp;
     }
 }
