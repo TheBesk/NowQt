@@ -40,7 +40,6 @@ addClientWindow::addClientWindow(QWidget *parent) : QDialog(parent), codiceScont
     QLabel *mesiLabel = new QLabel(tr("Mesi(*): "));
     mesiLineEdit= new QLineEdit();
     mesiLineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{3}")));
-    // 1 non deve essere valido
     QHBoxLayout *scontoHLayout= new QHBoxLayout();
     scontoLabel->setText("Hai un codice sconto? \nInseriscilo qui dopo aver personalizzato il tuo abbonamento a nowqt.");
     codicescLineEdit = new QLineEdit();
@@ -290,7 +289,6 @@ void addClientWindow::aggiornaCostoSHD() {
     costoPSportLabel->setText(QString::number(s));
 }
 
-
 void addClientWindow::mostraKids()
 {
     if (pacchettoKidscb->isChecked()==true) {
@@ -360,8 +358,7 @@ void addClientWindow::mostraErroreData(string d)
 void addClientWindow::verificaCoupon() {
     double t=totaleAbbLabel->text().toDouble();
     if ((pacchettoKidscb->isChecked() && pacchettoCinemacb->isChecked()) && !pacchettoSportcb->isChecked()) {
-    // kids e cinema selezionato
-    emit erroreInput("troppiPacchetti");
+        emit erroreInput("troppiPacchetti");
         return ;
     }
     else if((pacchettoKidscb->isChecked() && pacchettoSportcb->isChecked()) && !pacchettoCinemacb->isChecked()) {
@@ -375,7 +372,6 @@ void addClientWindow::verificaCoupon() {
     if(t>0) {
         if(codicescLineEdit->text()=="UNIPD") {
             emit esitoCoupon("corretto");
-            // chiama qualcosa che aggiorni il totale
             aggiornaTotale("s", 10);
             codiceSconto=true;
             verificacButton->setEnabled(false);
@@ -560,7 +556,7 @@ void addClientWindow::mostraEsitoC(string e)
 {
    QMessageBox esitoCouponBox;
    if(e=="corretto")
-       esitoCouponBox.critical(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
+       esitoCouponBox.information(this,"Coupon inserito con successo", "Congratulazioni hai ottenuto uno sconto del 10% sul totale. Il totale è stato aggiornato.");
    else if (e=="errato")
        esitoCouponBox.critical(this, "Coupon errato", "Il coupon inserito non è corretto. Riprovare con un altro codice.");
    else if(e=="carrellovuoto")
