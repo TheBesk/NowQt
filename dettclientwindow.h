@@ -1,7 +1,6 @@
 #ifndef DETTCLIENTWINDOW_H
 #define DETTCLIENTWINDOW_H
 
-
 #include <QDialog>
 #include<QVBoxLayout>
 #include<QGroupBox>
@@ -9,10 +8,8 @@
 #include<QLabel>
 #include<QFormLayout>
 #include<QPushButton>
-#include<QFile>
 #include <QString>
-#include<QMessageBox>
-#include"viewlistac.h"
+
 #include"nowqt.h"
 #include"kids.h"
 #include"cinema.h"
@@ -28,14 +25,14 @@ class dettClientWindow : public QDialog
 
 public:
     dettClientWindow(QWidget *parent =nullptr);
-    void visualizzaDettagliCliente(deepPointer<nowqt>) const;
+    void mostraDettCliente(deepPointer<nowqt>) const;
 
 protected:
-    QHBoxLayout* mainLayout, *titHLayout, *divH, *cHButton;
+    QHBoxLayout *mainLayout, *titHLayout, *cHButton;
     QVBoxLayout *pacchVLayout, *divV;
     QPushButton *closeButton;
-    QGroupBox* daticlienteGroup, *statoabbGroup, *pacchetto1Group, *pacchetto2Group, *pacchetto3Group;
-    QLabel *nomeClienteLabel, *cognomeClienteLabel, *codiceFiscClienteLabel, *dataNascitaClienteLabel, *emailClienteLabel, *pacchClienteLabel, *tPacch1, *offertaKidsCLabel, *descKidsLabel, *schermiContKLabel, *hdKidsLabel, *tPacch2, *offertaCinemaCLabel, *descCinemaLabel, *schermiContCLabel, *hdCinemaLabel, *tPacch3, *offertaSportCLabel, *descSportLabel, *schermiContSLabel, *hdSportLabel, *dataInizioALabel, *mesiAbbLabel, *dataFineALabel, *BcodiceScontoLabel, *tcouponLabel, *TcodiceScontoLabel, *totMeseAbbLabel, *totMesiAbbLabel;
+    QGroupBox *daticlienteGroup, *statoabbGroup, *pacchetto1Group, *pacchetto2Group, *pacchetto3Group;
+    QLabel *nomeClienteLabel, *cognomeClienteLabel, *codiceFiscClienteLabel, *dataNascitaClienteLabel, *emailClienteLabel, *pacchLabel, *pacchClienteLabel, *descKidsLabel, *schermiContKLabel, *hdKidsLabel, *descCinemaLabel, *schermiContCLabel, *hdCinemaLabel, *descSportLabel, *schermiContSLabel, *hdSportLabel, *dataInizioALabel, *mesiAbbLabel, *dataFineALabel, *BcodiceScontoLabel, *tcouponLabel, *TcodiceScontoLabel, *totMeseAbbLabel, *totMesiAbbLabel;
 
 };
 

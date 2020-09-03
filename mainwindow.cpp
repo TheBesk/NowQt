@@ -2,34 +2,33 @@
 
 mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new viewListaC(this))
 {
+    setMinimumSize(700,500);
     setWindowTitle("NowQT");
     setWindowIcon(QIcon(":/icone/nowqt_icon.ico"));
+
     mainLayout = new QVBoxLayout(this);
 
     QMenuBar* menubar = new QMenuBar(this);
-    QMenu* menu= new QMenu("File",menubar);
-    QAction* exit = new QAction("Esci",menu);
+    QMenu* menu= new QMenu("File", menubar);
+    QAction* exit = new QAction("Esci", menu);
 
     menu->addAction(exit);
     menubar->addMenu(menu);
     mainLayout->addWidget(menubar);
 
-    // setMainWindowStyle();
     verticalSxLayout = new QVBoxLayout();
-
     verticalDxLayout = new QVBoxLayout();
     divH = new QHBoxLayout();
 
     mainLayout->addLayout(divH);
     divH->addLayout(verticalSxLayout);
-
     setLayout(mainLayout);
 
     QHBoxLayout* imgLayout = new QHBoxLayout();
-
-    QPixmap*  pix = new QPixmap(":/risorse/rsz_nowqt.jpg");
+    QPixmap pix;
+    pix.load(":/risorse/rsz_nowqt.jpg");
     QLabel* image = new QLabel(this);
-    image->setPixmap(*pix);
+    image->setPixmap(pix);
     imgLayout->addWidget(image);
     verticalDxLayout->addLayout(imgLayout);
 
@@ -53,36 +52,20 @@ mainwindow::mainwindow(QWidget *parent) : QWidget(parent), listaClienti(new view
     clientiGroup->setAlignment(Qt::AlignCenter);
     listaClienti->setSelectionMode(QAbstractItemView::SingleSelection);
     QVBoxLayout *layoutListaClienti = new QVBoxLayout();
-    QHBoxLayout *layoutRicerca = new QHBoxLayout();
-    lineCerca = new QLineEdit(this);
-    lineCerca->setPlaceholderText("Cerca cliente");
-    lineCerca->setMinimumWidth(250);
 
-    layoutRicerca->addWidget(lineCerca);
-    QLabel *filtroLabel = new QLabel(tr("Filtra per "));
-    layoutRicerca->addWidget(filtroLabel);
-    QComboBox* tipoP = new QComboBox();
-    tipoP->addItem("Nessun filtro");
-    tipoP->addItem("Kids");
-    tipoP->addItem("Cinema");
-    tipoP->addItem("Sport");
-    tipoP->addItem("All inclusive");
-    layoutRicerca->addWidget(tipoP);
-    layoutListaClienti->addLayout(layoutRicerca);
     layoutListaClienti->addWidget(listaClienti);
     clientiGroup->setLayout(layoutListaClienti);
     verticalSxLayout->addWidget(clientiGroup);
-    divH->addLayout(verticalDxLayout);
+    divH->addLayout(verticalDxLayout);    
 
-    connect(addButton, SIGNAL(clicked()), this, SIGNAL(signOpenAddWindow()));
-    connect(exit, SIGNAL(triggered()), this, SLOT(close()));
-    connect(dettButton, SIGNAL(clicked()), this, SLOT(showInfoCliente()));
+    connect(addButton, SIGNAL(clicked()), this, SIGNAL(segnApriAgg()));
+    connect(dettButton, SIGNAL(clicked()), this, SLOT(visualizzaCliente()));
+    connect(modButton, SIGNAL(clicked()), this, SIGNAL(segnApriMod()));
     connect(removeButton, SIGNAL(clicked()),this, SLOT(richRimuoviC()));
-    connect(modButton, SIGNAL(clicked()), this, SIGNAL(signOpenModWindow()));
-    connect(tipoP, SIGNAL(currentTextChanged(const QString &)), this, SIGNAL(elementFilter(const QString&)));
+    connect(exit, SIGNAL(triggered()), this, SLOT(close()));
 }
 
-void mainwindow::mostraClienti(const QStringList datiCliente)
+void mainwindow::showLClienti(const QStringList datiCliente)
 {
     listaClienti->reset();
     listaClienti->clear();
@@ -93,22 +76,22 @@ void mainwindow::mostraClienti(const QStringList datiCliente)
     }
 }
 
-void mainwindow::nessunSelezionato()
+void mainwindow::noSelected()
 {
     QMessageBox NonSelezionato;
-    NonSelezionato.critical(this,"Nessun cliente selezionato","Selezionare un cliente");
+    NonSelezionato.critical(this, "Nessun cliente selezionato", "Selezionare un cliente");
 }
 
-bool mainwindow::isSelected() const
+bool mainwindow::isSelezionato() const
 {
     return listaClienti->isSomeoneSelected();
 }
 
-void mainwindow::showInfoCliente(){
+void mainwindow::visualizzaCliente(){
     if(listaClienti->isSomeoneSelected())
         emit signOpenDettWindow(listaClienti->getIndex());
     else {
-        nessunSelezionato();
+        noSelected();
     }
 }
 
@@ -117,11 +100,10 @@ void mainwindow::richRimuoviC()
     if(listaClienti->isSomeoneSelected())
         emit rimuoviCliente(listaClienti->getIndex());
     else
-        nessunSelezionato();
+        noSelected();
 }
 
-int mainwindow::getIndexSelected() const
+int mainwindow::getIndiceSel() const
 {
     return listaClienti->getIndex();
 }
-

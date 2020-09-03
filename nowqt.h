@@ -8,12 +8,12 @@ using std::string;
 class nowqt {
 
 public:
-    nowqt(string="", string="", int=2000, int=1, int=1, string="", string="", int=2000, int=1, int=1, unsigned int=1, bool=false, string="", double=0);
+    nowqt(string="", string="", int=2000, int=1, int=1, string="", string="", int=2000, int=1, int=1, unsigned int=1, bool=false, string="", float=0);
     virtual ~nowqt() = default;
     // metodi virtuali puri
     virtual nowqt* clone() const =0;
     virtual string getTipoPacc() const=0;
-    virtual double getTot() const=0; // prezzo che paga il cliente al mese
+    virtual float getTot() const=0; // prezzo che paga il cliente al mese
 
     string getNome() const;
     string getCognome() const;
@@ -33,11 +33,8 @@ public:
 
     void verificaCoupon();
     void aggiornaTot();
-    double calcolaTotAbb(); // stampa il prezzo che paga il cliente per tuttta la durata dell'abbonamento
-    QDate CalcolaFineAbb() const; // calcola la fine dell'abbonamento e stampa la data
-    int getGiornoFiAbb() const;
-    int getMeseFiAbb() const;
-    int getAnnoFiAbb() const;
+    float calcolaTotAbb(); // calcola il prezzo che paga il cliente per tuttta la durata dell'abbonamento e lo ritorna
+    QDate CalcolaFineAbb() const; // calcola la fine dell'abbonamento e ritorna la data
     virtual bool operator==(const nowqt&) const;
 
 private:
@@ -51,9 +48,7 @@ private:
     bool codicesconto;
     string coupon;
 protected:
-    double totale;
+    float totale;
 };
-
-std::ostream& operator<<(std::ostream&, const nowqt&);
 
 #endif // NOWQT_H

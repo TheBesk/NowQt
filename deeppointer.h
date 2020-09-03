@@ -4,7 +4,7 @@
 template <class T>
 class deepPointer{
 private:
-    T* pted;
+    T* ptr;
 public:
     deepPointer(T* =nullptr);
     deepPointer(const deepPointer&);
@@ -16,65 +16,64 @@ public:
     bool operator>(const deepPointer&) const;
     bool operator<(const deepPointer&) const;
     operator T*() const;
-
 };
 
 template <class T>
-deepPointer<T>::deepPointer(T* itm): pted(itm){}
+deepPointer<T>::deepPointer(T* itm): ptr(itm){}
 
 template <class T>
 deepPointer<T>::deepPointer(const deepPointer& dptr){
       if(!dptr)
-          pted=nullptr;
+          ptr=nullptr;
       else
-          pted=dptr.pted->clone();
+          ptr=dptr.ptr->clone();
 }
 
 template <class T>
 deepPointer<T>& deepPointer<T>::operator=(const deepPointer& dptr){
         if(this != &dptr){
-            if(pted)
-                delete pted;
-            pted = dptr.pted->clone();
+            if(ptr)
+                delete ptr;
+            ptr = dptr.ptr->clone();
     }
     return *this;
 }
 
 template <class T>
 T* deepPointer<T>::operator->() const{
-       return pted;
+       return ptr;
 }
 
 template <class T>
 deepPointer<T>::~deepPointer(){
-    if(pted)
-        delete pted;
+    if(ptr)
+        delete ptr;
 }
 
 template <class T>
 bool deepPointer<T>::operator==(const deepPointer& dptr) const{
-    return *pted==*(dptr.pted);
+    return *ptr==*(dptr.ptr);
 }
 
 template <class T>
 bool deepPointer<T>::operator!=(const deepPointer& dptr) const{
-    return *pted!=*(dptr.pted);
+    return *ptr!=*(dptr.ptr);
 }
 
 template<class T>
 bool deepPointer<T>::operator<(const deepPointer& dptr) const{
-    return *pted<*(dptr.pted);
+    return *ptr<*(dptr.ptr);
 }
 
 template<class T>
 bool deepPointer<T>::operator>(const deepPointer& dptr) const{
-    return *pted>*(dptr.pted);
+    return *ptr>*(dptr.ptr);
 }
 
 template<class T>
 deepPointer<T>::operator T *() const
 {
-    return pted;
+    return ptr;
 }
 
 #endif

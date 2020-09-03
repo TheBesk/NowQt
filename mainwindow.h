@@ -2,13 +2,7 @@
 #define GUI_H
 
 #include "viewlistac.h"
-#include "nowqt.h"
-#include "kids.h"
-#include "cinema.h"
-#include "sport.h"
-#include "allinclusive.h"
-#include "container.h"
-#include"deeppointer.h"
+#include"model.h"
 
 #include <QWidget>
 #include <QMenuBar>
@@ -17,14 +11,11 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QFormLayout>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QFile>
 #include <QMessageBox>
-#include <QCloseEvent>
-#include <iostream>
 #include <QIcon>
+#include <QString>
 
 class mainwindow : public QWidget
 {
@@ -32,37 +23,29 @@ class mainwindow : public QWidget
 
 public:
     mainwindow(QWidget *parent =nullptr);
-    bool isSelected() const;
-    int getIndexSelected() const;
-    void mostraClienti(const QStringList);
-    void nessunSelezionato();
+    bool isSelezionato() const;
+    int getIndiceSel() const;
+    void showLClienti(const QStringList);
+    void noSelected();
+
 public slots:
     void richRimuoviC();
-    void showInfoCliente();
+    void visualizzaCliente();
 
 private:
-    QComboBox * tipoP;
+    QComboBox *tipoP;
     QVBoxLayout *mainLayout, *verticalDxLayout, *verticalSxLayout, *vPulsanti;
-    QHBoxLayout *divH, *layoutRicerca;
-    QLineEdit* lineCerca;
-    QPushButton* addButton,*modButton,*removeButton, *dettButton;
+    QHBoxLayout *divH;
+    QPushButton *addButton, *modButton, *removeButton, *dettButton;
     viewListaC *listaClienti;
-    QLabel *filtroLabel, *image;
-    QGroupBox* clientiGroup; // *filtriGroup;
-    // void setMainWindowStyle();
-    // void closeEvent(QCloseEvent*) override;
+    QLabel *image;
+    QGroupBox* clientiGroup;
 
 signals:
-    void signOpenAddWindow();
+    void segnApriAgg();
     void signOpenDettWindow(const int);
-    void signOpenModWindow();
+    void segnApriMod();
     void rimuoviCliente(const int);
-    void elementFilter(const QString&); //oppure const string?
-    /*
-    void filtroKids();
-    void filtroCinema();
-    void filtroSport();
-    void filtroAllInclusive(); */
 };
 
 #endif // GUI_H

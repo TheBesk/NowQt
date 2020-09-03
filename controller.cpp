@@ -1,34 +1,34 @@
 #include "controller.h"
-controller::controller(QObject *parent) : QObject(parent), view(new mainwindow()), addClientW(new addClientWindow()), dettClientW(new dettClientWindow()), modClientW(new modClientWindow()), m(new model("data.xml"))
+controller::controller(QObject *parent) : QObject(parent), view(new mainwindow()), addClientW(new addClientWindow()), dettClientW(new dettClientWindow()), modClientW(new modClientWindow()), m(new model())
 {
-    connect(view,SIGNAL(signOpenAddWindow()),this,SLOT(openAddView()));
+    connect(view,SIGNAL(segnApriAgg()),this,SLOT(apriFinAgg()));
     connect(view,SIGNAL(signOpenDettWindow(const int)),this,SLOT(openDettView(const int)));
     connect(view,SIGNAL(rimuoviCliente(const int)),this,SLOT(removeC(const int)));
-    connect(view,SIGNAL(signOpenModWindow()),this,SLOT(openModView()));
+    connect(view,SIGNAL(segnApriMod()),this,SLOT(apriFinMod()));
 
     connect(m, SIGNAL(clienteAggiunto()), this, SLOT(resetListaClienti()));
     connect(m, SIGNAL(clienteRimosso()), this, SLOT(resetListaClienti()));
     connect(m, SIGNAL(clienteRimosso()), this, SLOT(clienteRimShowBox()));
-    connect(view, SIGNAL(elementFilter(const QString&)), this, SLOT(cFilter(const QString&)));
 
     connect(addClientW, SIGNAL(erroreInput(string)), this, SLOT(errInput(string)));
     connect(addClientW, SIGNAL(erroreData(string)),this , SLOT(errData(string)));
     connect(addClientW, SIGNAL(esitoCoupon(string)), this, SLOT(esitoCoup(string)));
-    connect(addClientW, SIGNAL(inviaStringaCliente(const QStringList)), this, SLOT(aggClienteContainer(const QStringList)));
+    connect(addClientW, SIGNAL(inviaDatiC(const QStringList)), this, SLOT(addInCont(const QStringList)));
 
     connect(modClientW, SIGNAL(erroreInput(string)), this, SLOT(errInput(string)));
     connect(modClientW, SIGNAL(erroreData(string)),this , SLOT(errData(string)));
-    connect(modClientW, SIGNAL(rimpiazzaCliente(const int,const QStringList)), this, SLOT(rimpiazzaItem(const int, QStringList)));
-    resetListaClienti();
+    connect(modClientW, SIGNAL(substCliente(const int,const QStringList)), this, SLOT(modClienteSel(const int, QStringList)));
 
-   view->show();
+    resetListaClienti();
+    view->show();
 }
 
 controller::~controller()
 {
+    delete m;
 }
 
-void controller::openAddView() const
+void controller::apriFinAgg() const
 {
     addClientW->resettaInput();
     addClientW->setModal(true);
@@ -36,30 +36,25 @@ void controller::openAddView() const
 }
 
 void controller::openDettView(const int c) const {
-    dettClientW->visualizzaDettagliCliente(m->mostraCliente(indexTranslate[c]));
+    dettClientW->mostraDettCliente(m->mostraCliente(indexTranslate[c]));
     dettClientW->setModal(true);
     dettClientW->show();
 }
 
-void controller::openModView() const
+void controller::apriFinMod() const
 {
-    if(view->isSelected()){
-        modClientW->caricaDati(m->getCampiCliente(view->getIndexSelected()), view->getIndexSelected());
+    if(view->isSelezionato()){
+        modClientW->loadDCliente(m->getCampiCliente(view->getIndiceSel()), view->getIndiceSel());
         modClientW->setModal(true);
         modClientW->show();
     }
     else
-        view->nessunSelezionato();
+        view->noSelected();
 }
 
-void controller::resetListaClientiF()
+void controller::modClienteSel(const int indice, const QStringList stringaCliente)
 {
-    view->mostraClienti(m->getListaClientiF(indexTranslate));
-}
-
-void controller::rimpiazzaItem(const int indice, const QStringList stringaCliente)
-{
-    m->modificaItem(indexTranslate[indice], stringaCliente);
+    m->modificaCliente(indexTranslate[indice], stringaCliente);
     modClientW->close();
     modClientW->clienteModificato();
     resetListaClienti();
@@ -67,17 +62,17 @@ void controller::rimpiazzaItem(const int indice, const QStringList stringaClient
 
 void controller::resetListaClienti()
 {
-    view->mostraClienti(m->getListaClientiT(indexTranslate));
+    view->showLClienti(m->getListaClientiT(indexTranslate));
 }
 
 void controller::errInput(string i)
 {
-    addClientW->mostraErroreInput(i);
+    addClientW->errInputShowBox(i);
 }
 
 void controller::errData(string d)
 {
-    addClientW->mostraErroreData(d);
+    addClientW->errDataShowBox(d);
 }
 
 void controller::esitoCoup(string e)
@@ -89,25 +84,20 @@ void controller::removeC(const int indice){
     m->removeC(indexTranslate[indice]);
 }
 
-void controller::cFilter(const QString& n)
-{
-    std::string temp=n.toStdString();
-    m->actualFilter(temp);
-    resetListaClientiF();
-}
-
 void controller::clienteRimShowBox(){
     QMessageBox clienteRimBox;
-    clienteRimBox.information(view,"Cliente rimosso","Il cliente selezionato è stato rimosso con successo!");
+    clienteRimBox.information(view, "Cliente rimosso", "Il cliente selezionato è stato rimosso con successo!");
 }
 
-void controller::aggClienteContainer(const QStringList dettagli)
+void controller::addInCont(const QStringList dettagli)
 {
-    try{
-    m->aggNelContainer(dettagli);
-    addClientW->close();
-    addClientW->successoCliente();
-    }catch(std::exception *exc){
+    try {
+        m->addClientContainer(dettagli);
+        addClientW->close();
+        addClientW->successoCliente();
+        }
+    catch(std::exception *exc){
         addClientW->showErrorInsMessage(exc->what());
+        delete exc;
     }
 }

@@ -15,6 +15,7 @@
 #include <QPushButton>
 #include <QStringList>
 #include <QMessageBox>
+#include <stdexcept>
 using std::string;
 
 class addClientWindow : public QDialog
@@ -22,8 +23,8 @@ class addClientWindow : public QDialog
     Q_OBJECT
 public:
     addClientWindow(QWidget *parent =nullptr);
-    virtual void mostraErroreInput(string);
-    virtual void mostraErroreData(string);
+    virtual void errInputShowBox(string);
+    virtual void errDataShowBox(string);
     void mostraEsitoC(string);
     void successoCliente();
     void showErrorInsMessage(const QString& message);
@@ -33,7 +34,7 @@ public slots:
     void mostraKids();
     void mostraCinema();
     void mostraSport();
-    void resettaInput();
+    void resettaInput(); // resetta
     void buttonKplus();
     void buttonKmin();
     void buttonCplus();
@@ -41,16 +42,16 @@ public slots:
     void buttonSplus();
     void buttonSmin();
     void verificaCoupon();
-    void aggiornaTotale(string, double);
+    void aggiornaTotale(string, float);
     void aggiornaCostoKHD();
     void aggiornaCostoCHD();
     void aggiornaCostoSHD();
 
 signals:
-    virtual void erroreInput(string);
+    void inviaDatiC(const QStringList);
+    void erroreInput(string);
     void esitoCoupon(string);
-    virtual void erroreData(string);
-    void inviaStringaCliente(const QStringList);
+    void erroreData(string);
 
 protected:
     bool codiceSconto;
@@ -63,6 +64,7 @@ protected:
     QDateEdit *dateInAbb, *dateNascita;
     QGroupBox *kidsGroup, *cinemaGroup, *sportGroup;
     QPushButton* salvaButton, *annullaButton, *aggiungisKButton, *rimuovisKButton, *aggiungisCButton, *rimuovisCButton, *aggiungisSButton, *rimuovisSButton, *verificacButton;
+
 };
 
 #endif // ADDCLIENTWINDOW_H

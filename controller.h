@@ -2,20 +2,12 @@
 #define CONTROLLER_H
 
 #include <QMessageBox>
-#include <iostream>
-#include<fstream>
-#include <QFileDialog>
 #include "mainwindow.h"
 #include "addclientwindow.h"
 #include "dettclientwindow.h"
-#include "model.h"
-#include "container.h"
-#include "deeppointer.h"
-#include <stdexcept>
 #include "modclientwindow.h"
-
-using std::ofstream;
-using std::endl;
+#include "model.h"
+#include <stdexcept>
 
 class controller : public QObject
 {
@@ -24,20 +16,19 @@ class controller : public QObject
 public:
     explicit controller(QObject *parent = nullptr);
     ~controller();
+
 public slots:
-    void openAddView()const;
+    void apriFinAgg()const;
     void errInput(string);
     void errData(string);
     void esitoCoup(string);
-    void aggClienteContainer(const QStringList);
+    void addInCont(const QStringList);
     void openDettView(const int)const;
-    void openModView() const;
+    void apriFinMod() const;
     void resetListaClienti();
     void removeC(const int);
-    void resetListaClientiF();
     void clienteRimShowBox();
-    void rimpiazzaItem(const int,const QStringList);
-    void cFilter(const QString&);
+    void modClienteSel(const int, const QStringList);
 
 private:
     mainwindow* view;

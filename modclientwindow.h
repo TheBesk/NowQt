@@ -11,14 +11,14 @@ private:
 
 public:
     explicit modClientWindow(QWidget *parent = nullptr);
-    void caricaDati(const QStringList &,const int);
+    void loadDCliente(const QStringList &,const int);
     void clienteModificato();
 
 public slots:
     void conferma() override;
 
 signals:
-    void rimpiazzaCliente(const int,const QStringList);
+    void substCliente(const int, const QStringList);
 
 };
 

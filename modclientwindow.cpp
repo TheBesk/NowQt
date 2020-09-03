@@ -27,7 +27,7 @@ modClientWindow::modClientWindow(QWidget *parent): addClientWindow(parent) {
     schermiSLineEdit->setEnabled(false);
 }
 
-void modClientWindow::caricaDati(const QStringList& c, const int i){
+void modClientWindow::loadDCliente(const QStringList& c, const int i){
     ind = i;
     nomeLineEdit->setText(c.at(0));
     cognomeLineEdit->setText(c.at(1));
@@ -213,7 +213,7 @@ void modClientWindow::conferma(){
         temp->push_back(mesiLineEdit->text());
 
         temp->push_back(totaleAbbLabel->text()); //totale , costo aggiornato dei pacchetti
-        emit rimpiazzaCliente(ind, *temp);
+        emit substCliente(ind, *temp);
         delete temp;
     }
 }

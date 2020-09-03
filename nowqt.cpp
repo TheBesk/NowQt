@@ -1,6 +1,6 @@
 #include "nowqt.h"
 
-nowqt::nowqt(string n, string c, int aN, int mN, int gN, string cf, string em, int aA, int mA, int gA, unsigned int me, bool cosc, string coup, double tot) : nome(n), cognome(c), dataNascita(aN, mN, gN), codicefiscale(cf), email(em), dataInAbb(aA, mA, gA), mesi(me), codicesconto(cosc), coupon(coup), totale(tot) {}
+nowqt::nowqt(string n, string c, int aN, int mN, int gN, string cf, string em, int aA, int mA, int gA, unsigned int me, bool cosc, string coup, float tot) : nome(n), cognome(c), dataNascita(aN, mN, gN), codicefiscale(cf), email(em), dataInAbb(aA, mA, gA), mesi(me), codicesconto(cosc), coupon(coup), totale(tot) {}
 
 string nowqt::getNome() const
 {
@@ -91,25 +91,15 @@ void nowqt::aggiornaTot()
     }
 }
 
-double nowqt::calcolaTotAbb()
+float nowqt::calcolaTotAbb()
 {
     return (getMesi()*getTot());
-}
-
-int nowqt::getAnnoFiAbb() const
-{
-    return (getMesi()/12);
-}
-
-int nowqt::getMeseFiAbb() const
-{
-    return (getMesi()%12);
 }
 
 QDate nowqt::CalcolaFineAbb() const {
     QDate FiAbb=getDataInAbb();
     FiAbb=FiAbb.addMonths(getMesi()%12);
-    FiAbb=FiAbb.addYears(getAnnoFiAbb());
+    FiAbb=FiAbb.addYears(getMesi()/12);
     return FiAbb;
 }
 
